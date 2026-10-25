@@ -1,0 +1,41 @@
+## Xcode Project Files
+*.xcuserstate
+*.xcworkspace/xcuserdata/
+*.xcodeproj/xcuserdata/
+*.xcodeproj/project.xcworkspace/xcuserdata/
+
+## Build outputs
+build/
+DerivedData/
+*.ipa
+*.dSYM.zip
+*.dSYM
+
+## CocoaPods
+Pods/
+*.xcworkspace
+
+## Swift Package Manager
+.build/
+.swiftpm/
+
+## Environment & Secrets
+*.env
+GoogleService-Info.plist
+Secrets.plist
+
+## macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+Thumbs.db
+*.swp
+
+## Fastlane
+fastlane/report.xml
+fastlane/Preview.html
+fastlane/screenshots/**/*.png
+fastlane/test_output
+
+## Code Coverage
+*.xcresult
