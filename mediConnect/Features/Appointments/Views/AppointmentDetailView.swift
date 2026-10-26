@@ -33,7 +33,12 @@ struct AppointmentDetailView: View {
                 
                 // MARK: - 4. Queue Check-In Status Card
                 if appointment.isCheckedIn {
-                    queueStatusCard
+                    NavigationLink {
+                        LiveQueueView(viewModel: QueueViewModel(appointment: appointment))
+                    } label: {
+                        queueStatusCard
+                    }
+                    .buttonStyle(.plain)
                 }
                 
                 // MARK: - 5. Reschedule Action

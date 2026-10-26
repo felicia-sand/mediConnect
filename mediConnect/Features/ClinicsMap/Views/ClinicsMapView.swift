@@ -18,6 +18,7 @@ struct ClinicsMapView: View {
     @State private var selectedClinic: Clinic = Clinic.mockClinics[0]
     @State private var selectedFilter: String = "All Clinics"
     @State private var showGeofenceAlert: Bool = false
+    @State private var showCheckInSheet: Bool = false
     
     // Map camera region centered over Colombo healthcare hub
     @State private var region = MKCoordinateRegion(
@@ -76,9 +77,15 @@ struct ClinicsMapView: View {
                 locationService.requestLocationPermission()
             }
             .alert("Geofence Arrival Detected! 📍", isPresented: $showGeofenceAlert) {
-                Button("OK", role: .cancel) {}
+                Button("View Queue") {
+                    showCheckInSheet = true
+                }
+                Button("Dismiss", role: .cancel) {}
             } message: {
                 Text("You have arrived at \(selectedClinic.name). Automatic check-in completed. Your queue number has been assigned.")
+            }
+            .sheet(isPresented: $showCheckInSheet) {
+                CheckInSuccessView()
             }
         }
     }
