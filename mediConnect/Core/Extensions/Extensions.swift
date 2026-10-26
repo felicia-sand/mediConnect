@@ -106,4 +106,22 @@ extension View {
                                 transform: (Self) -> Transform) -> some View {
         if condition { transform(self) } else { self }
     }
+    
+    /// Inline Navigation Bar Display Mode
+    func inlineNavigationBarTitle() -> some View {
+        #if os(iOS)
+        return self.navigationBarTitleDisplayMode(.inline)
+        #else
+        return self
+        #endif
+    }
+    
+    /// Hide Navigation Bar
+    func hideNavigationBar() -> some View {
+        #if os(iOS)
+        return self.navigationBarHidden(true)
+        #else
+        return self
+        #endif
+    }
 }

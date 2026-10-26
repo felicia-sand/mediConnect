@@ -1,84 +1,71 @@
 // MainTabView.swift
 // MediConnect — Features/Dashboard/Views
 //
-// Created by Felicia on 25/10/2026.
+// Persistent 5-Tab Navigation Shell matching Figma & PRD specifications:
+// 1. Home
+// 2. Doctors
+// 3. Appointments
+// 4. Map
+// 5. Profile
 
 import SwiftUI
 
 struct MainTabView: View {
     
     @State private var selectedTab: Tab = .home
+    @EnvironmentObject var authViewModel: AuthViewModel
     
     enum Tab: Int {
-        case home, appointments, messages, profile
+        case home = 0
+        case doctors = 1
+        case appointments = 2
+        case map = 3
+        case profile = 4
     }
     
     var body: some View {
         TabView(selection: $selectedTab) {
             
-            HomeView()
-                .tabItem {
-                    Label("Home", systemImage: selectedTab == .home ? "house.fill" : "house")
+            // Tab 1: Home Dashboard
+            HomeView(onTabSelect: { index in
+                if let tab = Tab(rawValue: index) {
+                    selectedTab = tab
                 }
-                .tag(Tab.home)
+            })
+            .tabItem {
+                Label("Home", systemImage: selectedTab == .home ? "house.fill" : "house")
+            }
+            .tag(Tab.home)
             
-            AppointmentsView()
+            // Tab 2: Doctor Search & Booking
+            DoctorsListView()
+                .tabItem {
+                    Label("Doctors", systemImage: "stethoscope")
+                }
+                .tag(Tab.doctors)
+            
+            // Tab 3: Appointments & Queue
+            AppointmentsListView()
                 .tabItem {
                     Label("Appointments", systemImage: selectedTab == .appointments ? "calendar.badge.clock" : "calendar")
                 }
                 .tag(Tab.appointments)
             
-            MessagesView()
+            // Tab 4: Clinic Discovery Map
+            ClinicsMapView()
                 .tabItem {
-                    Label("Messages", systemImage: selectedTab == .messages ? "message.fill" : "message")
+                    Label("Map", systemImage: selectedTab == .map ? "map.fill" : "map")
                 }
-                .tag(Tab.messages)
+                .tag(Tab.map)
             
+            // Tab 5: Patient Profile & Settings
             ProfileView()
                 .tabItem {
-                    Label("Profile", systemImage: selectedTab == .profile ? "person.fill" : "person")
+                    Label("Profile", systemImage: selectedTab == .profile ? "person.crop.circle.fill" : "person.crop.circle")
                 }
                 .tag(Tab.profile)
         }
-        .tint(.blue)
-    }
-}
-
-// MARK: - Placeholder Views (to be implemented)
-
-struct HomeView: View {
-    var body: some View {
-        NavigationStack {
-            Text("Home Dashboard")
-                .navigationTitle("MediConnect")
-        }
-    }
-}
-
-struct AppointmentsView: View {
-    var body: some View {
-        NavigationStack {
-            Text("My Appointments")
-                .navigationTitle("Appointments")
-        }
-    }
-}
-
-struct MessagesView: View {
-    var body: some View {
-        NavigationStack {
-            Text("Messages")
-                .navigationTitle("Messages")
-        }
-    }
-}
-
-struct ProfileView: View {
-    var body: some View {
-        NavigationStack {
-            Text("My Profile")
-                .navigationTitle("Profile")
-        }
+        .tint(Color.mcTeal)
     }
 }
 
@@ -86,6 +73,7 @@ struct ProfileView: View {
 struct MainTabView_Previews: PreviewProvider {
     static var previews: some View {
         MainTabView()
+            .environmentObject(AuthViewModel())
     }
 }
 #endif
