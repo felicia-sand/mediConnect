@@ -1,0 +1,437 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		BF00000000000000000001 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF00000000000000000001 /* ContentView.swift */; };
+		BF00000000000000000002 /* mediConnectApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF00000000000000000002 /* mediConnectApp.swift */; };
+		BF00000000000000000003 /* AppColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF00000000000000000003 /* AppColors.swift */; };
+		BF00000000000000000004 /* BiometricAuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF00000000000000000004 /* BiometricAuthService.swift */; };
+		BF00000000000000000005 /* LocationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF00000000000000000005 /* LocationService.swift */; };
+		BF00000000000000000006 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF00000000000000000006 /* NetworkManager.swift */; };
+		BF00000000000000000007 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF00000000000000000007 /* Extensions.swift */; };
+		BF00000000000000000008 /* AppConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF00000000000000000008 /* AppConstants.swift */; };
+		BF00000000000000000009 /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF00000000000000000009 /* NotificationService.swift */; };
+		BF0000000000000000000a /* BookingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF0000000000000000000a /* BookingViewModel.swift */; };
+		BF0000000000000000000b /* AppointmentDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF0000000000000000000b /* AppointmentDetailView.swift */; };
+		BF0000000000000000000c /* AppointmentsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF0000000000000000000c /* AppointmentsListView.swift */; };
+		BF0000000000000000000d /* BookingReviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF0000000000000000000d /* BookingReviewView.swift */; };
+		BF0000000000000000000e /* PatientDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF0000000000000000000e /* PatientDetailsView.swift */; };
+		BF0000000000000000000f /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF0000000000000000000f /* HomeViewModel.swift */; };
+		BF00000000000000000010 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF00000000000000000010 /* HomeView.swift */; };
+		BF00000000000000000011 /* MainTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF00000000000000000011 /* MainTabView.swift */; };
+		BF00000000000000000012 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF00000000000000000012 /* ProfileView.swift */; };
+		BF00000000000000000013 /* DoctorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF00000000000000000013 /* DoctorViewModel.swift */; };
+		BF00000000000000000014 /* DoctorProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF00000000000000000014 /* DoctorProfileView.swift */; };
+		BF00000000000000000015 /* DoctorsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF00000000000000000015 /* DoctorsListView.swift */; };
+		BF00000000000000000016 /* DoctorCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF00000000000000000016 /* DoctorCardView.swift */; };
+		BF00000000000000000017 /* ClinicsMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF00000000000000000017 /* ClinicsMapView.swift */; };
+		BF00000000000000000018 /* QueueViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF00000000000000000018 /* QueueViewModel.swift */; };
+		BF00000000000000000019 /* CheckInSuccessView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF00000000000000000019 /* CheckInSuccessView.swift */; };
+		BF0000000000000000001a /* LiveQueueView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF0000000000000000001a /* LiveQueueView.swift */; };
+		BF0000000000000000001b /* AuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF0000000000000000001b /* AuthViewModel.swift */; };
+		BF0000000000000000001c /* AuthenticationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF0000000000000000001c /* AuthenticationView.swift */; };
+		BF0000000000000000001d /* CreateNewPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF0000000000000000001d /* CreateNewPasswordView.swift */; };
+		BF0000000000000000001e /* ForgotPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF0000000000000000001e /* ForgotPasswordView.swift */; };
+		BF0000000000000000001f /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF0000000000000000001f /* LoginView.swift */; };
+		BF00000000000000000020 /* OTPVerificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF00000000000000000020 /* OTPVerificationView.swift */; };
+		BF00000000000000000021 /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF00000000000000000021 /* SignUpView.swift */; };
+		BF00000000000000000022 /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF00000000000000000022 /* SplashView.swift */; };
+		BF00000000000000000023 /* MCButtons.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF00000000000000000023 /* MCButtons.swift */; };
+		BF00000000000000000024 /* MCInputField.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF00000000000000000024 /* MCInputField.swift */; };
+		BF00000000000000000025 /* MCOTPCodeField.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF00000000000000000025 /* MCOTPCodeField.swift */; };
+		BF00000000000000000026 /* MCPasswordRulesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF00000000000000000026 /* MCPasswordRulesView.swift */; };
+		BF00000000000000000027 /* Appointment.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF00000000000000000027 /* Appointment.swift */; };
+		BF00000000000000000028 /* Clinic.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF00000000000000000028 /* Clinic.swift */; };
+		BF00000000000000000029 /* Doctor.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF00000000000000000029 /* Doctor.swift */; };
+		BF0000000000000000002a /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF0000000000000000002a /* Message.swift */; };
+		BF0000000000000000002b /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF0000000000000000002b /* User.swift */; };
+		BF0000000000000000002c /* QueueActivityAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF0000000000000000002c /* QueueActivityAttributes.swift */; };
+		BF0000000000000000002d /* UpcomingAppointmentWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF0000000000000000002d /* UpcomingAppointmentWidget.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		FF00000000000000000001 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "mediConnect/ContentView.swift"; sourceTree = "<group>"; };
+		FF00000000000000000002 /* mediConnectApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "mediConnect/mediConnectApp.swift"; sourceTree = "<group>"; };
+		FF00000000000000000003 /* AppColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "mediConnect/Core/DesignSystem/AppColors.swift"; sourceTree = "<group>"; };
+		FF00000000000000000004 /* BiometricAuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "mediConnect/Core/Security/BiometricAuthService.swift"; sourceTree = "<group>"; };
+		FF00000000000000000005 /* LocationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "mediConnect/Core/Location/LocationService.swift"; sourceTree = "<group>"; };
+		FF00000000000000000006 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "mediConnect/Core/Network/NetworkManager.swift"; sourceTree = "<group>"; };
+		FF00000000000000000007 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "mediConnect/Core/Extensions/Extensions.swift"; sourceTree = "<group>"; };
+		FF00000000000000000008 /* AppConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "mediConnect/Core/Utilities/AppConstants.swift"; sourceTree = "<group>"; };
+		FF00000000000000000009 /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "mediConnect/Core/Notifications/NotificationService.swift"; sourceTree = "<group>"; };
+		FF0000000000000000000a /* BookingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "mediConnect/Features/Appointments/ViewModels/BookingViewModel.swift"; sourceTree = "<group>"; };
+		FF0000000000000000000b /* AppointmentDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "mediConnect/Features/Appointments/Views/AppointmentDetailView.swift"; sourceTree = "<group>"; };
+		FF0000000000000000000c /* AppointmentsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "mediConnect/Features/Appointments/Views/AppointmentsListView.swift"; sourceTree = "<group>"; };
+		FF0000000000000000000d /* BookingReviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "mediConnect/Features/Appointments/Views/BookingReviewView.swift"; sourceTree = "<group>"; };
+		FF0000000000000000000e /* PatientDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "mediConnect/Features/Appointments/Views/PatientDetailsView.swift"; sourceTree = "<group>"; };
+		FF0000000000000000000f /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "mediConnect/Features/Dashboard/ViewModels/HomeViewModel.swift"; sourceTree = "<group>"; };
+		FF00000000000000000010 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "mediConnect/Features/Dashboard/Views/HomeView.swift"; sourceTree = "<group>"; };
+		FF00000000000000000011 /* MainTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "mediConnect/Features/Dashboard/Views/MainTabView.swift"; sourceTree = "<group>"; };
+		FF00000000000000000012 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "mediConnect/Features/Profile/Views/ProfileView.swift"; sourceTree = "<group>"; };
+		FF00000000000000000013 /* DoctorViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "mediConnect/Features/Doctors/ViewModels/DoctorViewModel.swift"; sourceTree = "<group>"; };
+		FF00000000000000000014 /* DoctorProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "mediConnect/Features/Doctors/Views/DoctorProfileView.swift"; sourceTree = "<group>"; };
+		FF00000000000000000015 /* DoctorsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "mediConnect/Features/Doctors/Views/DoctorsListView.swift"; sourceTree = "<group>"; };
+		FF00000000000000000016 /* DoctorCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "mediConnect/Features/Doctors/Views/Components/DoctorCardView.swift"; sourceTree = "<group>"; };
+		FF00000000000000000017 /* ClinicsMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "mediConnect/Features/ClinicsMap/Views/ClinicsMapView.swift"; sourceTree = "<group>"; };
+		FF00000000000000000018 /* QueueViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "mediConnect/Features/Queue/ViewModels/QueueViewModel.swift"; sourceTree = "<group>"; };
+		FF00000000000000000019 /* CheckInSuccessView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "mediConnect/Features/Queue/Views/CheckInSuccessView.swift"; sourceTree = "<group>"; };
+		FF0000000000000000001a /* LiveQueueView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "mediConnect/Features/Queue/Views/LiveQueueView.swift"; sourceTree = "<group>"; };
+		FF0000000000000000001b /* AuthViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "mediConnect/Features/Authentication/ViewModels/AuthViewModel.swift"; sourceTree = "<group>"; };
+		FF0000000000000000001c /* AuthenticationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "mediConnect/Features/Authentication/Views/AuthenticationView.swift"; sourceTree = "<group>"; };
+		FF0000000000000000001d /* CreateNewPasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "mediConnect/Features/Authentication/Views/CreateNewPasswordView.swift"; sourceTree = "<group>"; };
+		FF0000000000000000001e /* ForgotPasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "mediConnect/Features/Authentication/Views/ForgotPasswordView.swift"; sourceTree = "<group>"; };
+		FF0000000000000000001f /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "mediConnect/Features/Authentication/Views/LoginView.swift"; sourceTree = "<group>"; };
+		FF00000000000000000020 /* OTPVerificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "mediConnect/Features/Authentication/Views/OTPVerificationView.swift"; sourceTree = "<group>"; };
+		FF00000000000000000021 /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "mediConnect/Features/Authentication/Views/SignUpView.swift"; sourceTree = "<group>"; };
+		FF00000000000000000022 /* SplashView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "mediConnect/Features/Authentication/Views/SplashView.swift"; sourceTree = "<group>"; };
+		FF00000000000000000023 /* MCButtons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "mediConnect/Features/Authentication/Views/Components/MCButtons.swift"; sourceTree = "<group>"; };
+		FF00000000000000000024 /* MCInputField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "mediConnect/Features/Authentication/Views/Components/MCInputField.swift"; sourceTree = "<group>"; };
+		FF00000000000000000025 /* MCOTPCodeField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "mediConnect/Features/Authentication/Views/Components/MCOTPCodeField.swift"; sourceTree = "<group>"; };
+		FF00000000000000000026 /* MCPasswordRulesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "mediConnect/Features/Authentication/Views/Components/MCPasswordRulesView.swift"; sourceTree = "<group>"; };
+		FF00000000000000000027 /* Appointment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "mediConnect/Models/Appointment.swift"; sourceTree = "<group>"; };
+		FF00000000000000000028 /* Clinic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "mediConnect/Models/Clinic.swift"; sourceTree = "<group>"; };
+		FF00000000000000000029 /* Doctor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "mediConnect/Models/Doctor.swift"; sourceTree = "<group>"; };
+		FF0000000000000000002a /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "mediConnect/Models/Message.swift"; sourceTree = "<group>"; };
+		FF0000000000000000002b /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "mediConnect/Models/User.swift"; sourceTree = "<group>"; };
+		FF0000000000000000002c /* QueueActivityAttributes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "mediConnect/Widgets/QueueActivityAttributes.swift"; sourceTree = "<group>"; };
+		FF0000000000000000002d /* UpcomingAppointmentWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "mediConnect/Widgets/UpcomingAppointmentWidget.swift"; sourceTree = "<group>"; };
+		TARGET_PRODUCT /* mediConnect.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = mediConnect.app; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		FRAMEWORKS_PHASE /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		MAIN_GROUP = {
+			isa = PBXGroup;
+			children = (
+				MEDI_CONNECT_GROUP /* mediConnect */,
+				PRODUCTS_GROUP /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		MEDI_CONNECT_GROUP /* mediConnect */ = {
+			isa = PBXGroup;
+			children = (
+				FF00000000000000000001 /* ContentView.swift */,
+				FF00000000000000000002 /* mediConnectApp.swift */,
+				FF00000000000000000003 /* AppColors.swift */,
+				FF00000000000000000004 /* BiometricAuthService.swift */,
+				FF00000000000000000005 /* LocationService.swift */,
+				FF00000000000000000006 /* NetworkManager.swift */,
+				FF00000000000000000007 /* Extensions.swift */,
+				FF00000000000000000008 /* AppConstants.swift */,
+				FF00000000000000000009 /* NotificationService.swift */,
+				FF0000000000000000000a /* BookingViewModel.swift */,
+				FF0000000000000000000b /* AppointmentDetailView.swift */,
+				FF0000000000000000000c /* AppointmentsListView.swift */,
+				FF0000000000000000000d /* BookingReviewView.swift */,
+				FF0000000000000000000e /* PatientDetailsView.swift */,
+				FF0000000000000000000f /* HomeViewModel.swift */,
+				FF00000000000000000010 /* HomeView.swift */,
+				FF00000000000000000011 /* MainTabView.swift */,
+				FF00000000000000000012 /* ProfileView.swift */,
+				FF00000000000000000013 /* DoctorViewModel.swift */,
+				FF00000000000000000014 /* DoctorProfileView.swift */,
+				FF00000000000000000015 /* DoctorsListView.swift */,
+				FF00000000000000000016 /* DoctorCardView.swift */,
+				FF00000000000000000017 /* ClinicsMapView.swift */,
+				FF00000000000000000018 /* QueueViewModel.swift */,
+				FF00000000000000000019 /* CheckInSuccessView.swift */,
+				FF0000000000000000001a /* LiveQueueView.swift */,
+				FF0000000000000000001b /* AuthViewModel.swift */,
+				FF0000000000000000001c /* AuthenticationView.swift */,
+				FF0000000000000000001d /* CreateNewPasswordView.swift */,
+				FF0000000000000000001e /* ForgotPasswordView.swift */,
+				FF0000000000000000001f /* LoginView.swift */,
+				FF00000000000000000020 /* OTPVerificationView.swift */,
+				FF00000000000000000021 /* SignUpView.swift */,
+				FF00000000000000000022 /* SplashView.swift */,
+				FF00000000000000000023 /* MCButtons.swift */,
+				FF00000000000000000024 /* MCInputField.swift */,
+				FF00000000000000000025 /* MCOTPCodeField.swift */,
+				FF00000000000000000026 /* MCPasswordRulesView.swift */,
+				FF00000000000000000027 /* Appointment.swift */,
+				FF00000000000000000028 /* Clinic.swift */,
+				FF00000000000000000029 /* Doctor.swift */,
+				FF0000000000000000002a /* Message.swift */,
+				FF0000000000000000002b /* User.swift */,
+				FF0000000000000000002c /* QueueActivityAttributes.swift */,
+				FF0000000000000000002d /* UpcomingAppointmentWidget.swift */,
+			);
+			sourceTree = "<group>";
+		};
+		PRODUCTS_GROUP /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				TARGET_PRODUCT /* mediConnect.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		NATIVE_TARGET /* mediConnect */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = TARGET_CONFIG_LIST /* Build configuration list for PBXNativeTarget "mediConnect" */;
+			buildPhases = (
+				SOURCES_PHASE /* Sources */,
+				FRAMEWORKS_PHASE /* Frameworks */,
+				RESOURCES_PHASE /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = mediConnect;
+			productName = mediConnect;
+			productReference = TARGET_PRODUCT /* mediConnect.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		PROJECT_ROOT /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1500;
+				LastUpgradeCheck = 1500;
+				TargetAttributes = {
+					NATIVE_TARGET = {
+						CreatedOnToolsVersion = 15.0;
+					};
+				};
+			};
+			buildConfigurationList = PROJECT_CONFIG_LIST /* Build configuration list for PBXProject "mediConnect" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = MAIN_GROUP;
+			productRefGroup = PRODUCTS_GROUP /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				NATIVE_TARGET /* mediConnect */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		RESOURCES_PHASE /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		SOURCES_PHASE /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BF00000000000000000001 /* ContentView.swift in Sources */,
+				BF00000000000000000002 /* mediConnectApp.swift in Sources */,
+				BF00000000000000000003 /* AppColors.swift in Sources */,
+				BF00000000000000000004 /* BiometricAuthService.swift in Sources */,
+				BF00000000000000000005 /* LocationService.swift in Sources */,
+				BF00000000000000000006 /* NetworkManager.swift in Sources */,
+				BF00000000000000000007 /* Extensions.swift in Sources */,
+				BF00000000000000000008 /* AppConstants.swift in Sources */,
+				BF00000000000000000009 /* NotificationService.swift in Sources */,
+				BF0000000000000000000a /* BookingViewModel.swift in Sources */,
+				BF0000000000000000000b /* AppointmentDetailView.swift in Sources */,
+				BF0000000000000000000c /* AppointmentsListView.swift in Sources */,
+				BF0000000000000000000d /* BookingReviewView.swift in Sources */,
+				BF0000000000000000000e /* PatientDetailsView.swift in Sources */,
+				BF0000000000000000000f /* HomeViewModel.swift in Sources */,
+				BF00000000000000000010 /* HomeView.swift in Sources */,
+				BF00000000000000000011 /* MainTabView.swift in Sources */,
+				BF00000000000000000012 /* ProfileView.swift in Sources */,
+				BF00000000000000000013 /* DoctorViewModel.swift in Sources */,
+				BF00000000000000000014 /* DoctorProfileView.swift in Sources */,
+				BF00000000000000000015 /* DoctorsListView.swift in Sources */,
+				BF00000000000000000016 /* DoctorCardView.swift in Sources */,
+				BF00000000000000000017 /* ClinicsMapView.swift in Sources */,
+				BF00000000000000000018 /* QueueViewModel.swift in Sources */,
+				BF00000000000000000019 /* CheckInSuccessView.swift in Sources */,
+				BF0000000000000000001a /* LiveQueueView.swift in Sources */,
+				BF0000000000000000001b /* AuthViewModel.swift in Sources */,
+				BF0000000000000000001c /* AuthenticationView.swift in Sources */,
+				BF0000000000000000001d /* CreateNewPasswordView.swift in Sources */,
+				BF0000000000000000001e /* ForgotPasswordView.swift in Sources */,
+				BF0000000000000000001f /* LoginView.swift in Sources */,
+				BF00000000000000000020 /* OTPVerificationView.swift in Sources */,
+				BF00000000000000000021 /* SignUpView.swift in Sources */,
+				BF00000000000000000022 /* SplashView.swift in Sources */,
+				BF00000000000000000023 /* MCButtons.swift in Sources */,
+				BF00000000000000000024 /* MCInputField.swift in Sources */,
+				BF00000000000000000025 /* MCOTPCodeField.swift in Sources */,
+				BF00000000000000000026 /* MCPasswordRulesView.swift in Sources */,
+				BF00000000000000000027 /* Appointment.swift in Sources */,
+				BF00000000000000000028 /* Clinic.swift in Sources */,
+				BF00000000000000000029 /* Doctor.swift in Sources */,
+				BF0000000000000000002a /* Message.swift in Sources */,
+				BF0000000000000000002b /* User.swift in Sources */,
+				BF0000000000000000002c /* QueueActivityAttributes.swift in Sources */,
+				BF0000000000000000002d /* UpcomingAppointmentWidget.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		PROJECT_CONFIG_DEBUG /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		PROJECT_CONFIG_RELEASE /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_OPTIMIZATION_LEVEL = s;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = "wholemodule";
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		TARGET_CONFIG_DEBUG /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = "MediConnect";
+				INFOPLIST_KEY_NSFaceIDUsageDescription = "MediConnect uses Face ID for fast and secure patient authentication.";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "MediConnect uses your location to discover nearby medical facilities in Colombo and automatically check you into appointments upon arrival.";
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "MediConnect uses geofencing to detect your arrival at the clinic and assign your queue number automatically.";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = lk.mediconnect.ios;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		TARGET_CONFIG_RELEASE /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = "MediConnect";
+				INFOPLIST_KEY_NSFaceIDUsageDescription = "MediConnect uses Face ID for fast and secure patient authentication.";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "MediConnect uses your location to discover nearby medical facilities in Colombo and automatically check you into appointments upon arrival.";
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "MediConnect uses geofencing to detect your arrival at the clinic and assign your queue number automatically.";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = lk.mediconnect.ios;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		PROJECT_CONFIG_LIST /* Build configuration list for PBXProject "mediConnect" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				PROJECT_CONFIG_DEBUG /* Debug */,
+				PROJECT_CONFIG_RELEASE /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		TARGET_CONFIG_LIST /* Build configuration list for PBXNativeTarget "mediConnect" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				TARGET_CONFIG_DEBUG /* Debug */,
+				TARGET_CONFIG_RELEASE /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+	};
+	rootObject = PROJECT_ROOT /* Project object */;
+}
