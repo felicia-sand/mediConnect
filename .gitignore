@@ -1,41 +1,93 @@
-## Xcode Project Files
+## ==============================================================================
+## MediConnect iOS — .gitignore
+## Configured for Swift, SwiftUI, Xcode, SPM, CocoaPods & Firebase
+## ==============================================================================
+
+## Xcode Project & Workspace Files
+# User-specific Xcode state
+xcuserdata/
+*.xcuserdatad
 *.xcuserstate
-*.xcworkspace/xcuserdata/
 *.xcodeproj/xcuserdata/
 *.xcodeproj/project.xcworkspace/xcuserdata/
+*.xcworkspace/xcuserdata/
 
-## Build outputs
+# Xcode configuration & workspace checks
+*.xcworkspace/xcshareddata/WorkspaceSettings.xcsettings
+*.xcodeproj/project.xcworkspace/xcshareddata/WorkspaceSettings.xcsettings
+
+# Temporary Xcode settings
+*.pbxuser
+!default.pbxuser
+*.mode1v3
+!default.mode1v3
+*.mode2v3
+!default.mode2v3
+*.perspectivev3
+!default.perspectivev3
+
+# Xcode project migration & scm
+*.moved-aside
+*.xccheckout
+*.xcscmblueprint
+*.hmap
+
+## Build Outputs & Derived Data
 build/
 DerivedData/
 *.ipa
 *.dSYM.zip
 *.dSYM
 
-## CocoaPods
-Pods/
-*.xcworkspace
-
-## Swift Package Manager
+## Swift Package Manager (SPM)
+# Ignore SPM build caches and Xcode SPM user-specific state
 .build/
-.swiftpm/
+.swiftpm/xcode/
+Packages/
 
-## Environment & Secrets
-*.env
+## CocoaPods
+# Ignore Pods dependency directory
+Pods/
+# Note: Preserve .xcworkspace (contents.xcworkspacedata) for team build consistency
+
+## Environment, Firebase & Local Secrets
+# Firebase configuration files (contain project API keys and client identifiers)
 GoogleService-Info.plist
-Secrets.plist
+GoogleService-Info*.plist
 
-## macOS
+# Local environment & credentials files
+*.env
+*.env.*
+!.env.example
+Secrets.plist
+*Secrets*.plist
+LocalConfig.plist
+*.xcconfig.local
+
+# Security certificates, signing keys, and provisioning profiles
+*.key
+*.cer
+*.p12
+*.mobileprovision
+*.keystore
+*.jks
+
+## macOS & System Files
 .DS_Store
 .AppleDouble
 .LSOverride
 Thumbs.db
 *.swp
+*~
+*.lock
 
-## Fastlane
+## Fastlane & CI
 fastlane/report.xml
 fastlane/Preview.html
 fastlane/screenshots/**/*.png
-fastlane/test_output
+fastlane/test_output/
 
-## Code Coverage
+## Code Coverage & Test Artifacts
 *.xcresult
+*.xctest
+*.coverage
