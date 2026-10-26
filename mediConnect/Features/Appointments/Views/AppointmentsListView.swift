@@ -29,10 +29,20 @@ struct AppointmentsListView: View {
                 ScrollView(showsIndicators: false) {
                     VStack(spacing: 16) {
                         if selectedSegment == 0 {
-                            appointmentCard(Appointment.mockUpcoming)
+                            NavigationLink {
+                                AppointmentDetailView(appointment: Appointment.mockUpcoming)
+                            } label: {
+                                appointmentCard(Appointment.mockUpcoming)
+                            }
+                            .buttonStyle(.plain)
                         } else {
                             ForEach(Appointment.mockHistory.filter { $0.status == .completed }) { appt in
-                                appointmentCard(appt)
+                                NavigationLink {
+                                    AppointmentDetailView(appointment: appt)
+                                } label: {
+                                    appointmentCard(appt)
+                                }
+                                .buttonStyle(.plain)
                             }
                         }
                     }

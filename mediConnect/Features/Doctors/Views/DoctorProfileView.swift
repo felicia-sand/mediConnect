@@ -14,6 +14,8 @@ struct DoctorProfileView: View {
     
     let doctor: Doctor
     @StateObject private var viewModel = DoctorViewModel()
+    @StateObject private var bookingViewModel = BookingViewModel()
+    @State private var navigateToPatientDetails: Bool = false
     @Environment(\.dismiss) private var dismiss
     
     // Callback when user taps "Next →" to proceed to booking details (Phase 4)
@@ -42,6 +44,9 @@ struct DoctorProfileView: View {
         .background(Color.mcAppBg.ignoresSafeArea())
         .navigationTitle("Doctor Profile")
         .inlineNavigationBarTitle()
+        .navigationDestination(isPresented: $navigateToPatientDetails) {
+            PatientDetailsView(bookingViewModel: bookingViewModel)
+        }
         .onAppear {
             viewModel.selectDoctor(doctor)
         }
@@ -355,7 +360,13 @@ struct DoctorProfileView: View {
                 title: "Next →",
                 isDisabled: viewModel.selectedTimeSlot == nil
             ) {
+                bookingViewModel.configure(
+                    doctor: doctor,
+                    date: viewModel.selectedDate,
+                    slot: viewModel.selectedTimeSlot
+                )
                 onProceedToBooking?(doctor, viewModel.selectedDate, viewModel.selectedTimeSlot)
+                navigateToPatientDetails = true
             }
             
             // Policy Note
