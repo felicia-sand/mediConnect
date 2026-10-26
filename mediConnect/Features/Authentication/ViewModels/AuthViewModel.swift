@@ -1,151 +1,365 @@
 // AuthViewModel.swift
 // MediConnect — Features/Authentication/ViewModels
 //
-// Created by Felicia on 25/10/2026.
+// Complete Authentication State Machine and Business Logic
+// Conforms to Figma screens, UI navigation matrix, and PRD specifications.
 
 import Foundation
 import Combine
+import SwiftUI
 
-// MARK: - Auth State
-enum AuthState {
-    case idle
-    case loading
-    case authenticated(User)
-    case unauthenticated
-    case error(String)
+// MARK: - Authentication Flow State
+enum AuthFlowState: Equatable {
+    case splash
+    case login
+    case signUp
+    case verifySignUpOTP
+    case forgotPassword
+    case verifyResetOTP
+    case createNewPassword
+    case authenticated
 }
 
 // MARK: - AuthViewModel
 @MainActor
 final class AuthViewModel: ObservableObject {
     
-    // MARK: - Published Properties
-    @Published var authState: AuthState = .unauthenticated
+    // MARK: - Navigation & Flow State
+    @Published var flowState: AuthFlowState = .splash
     @Published var currentUser: User?
     @Published var isLoading: Bool = false
+    @Published var isBiometricLoading: Bool = false
     @Published var errorMessage: String?
+    @Published var successMessage: String?
     
-    // Form Fields
+    // MARK: - Login Form Fields
     @Published var email: String = ""
     @Published var password: String = ""
+    
+    // MARK: - Registration Form Fields
     @Published var fullName: String = ""
+    @Published var emailOrPhone: String = ""
     @Published var confirmPassword: String = ""
     @Published var selectedRole: UserRole = .patient
     
-    // MARK: - Computed
+    // MARK: - Verification (OTP) Fields
+    @Published var otpCode: String = ""
+    @Published var maskedContact: String = "fe******@gmail.com"
+    @Published var resendCountdown: Int = 30
+    @Published var canResendCode: Bool = false
+    
+    // MARK: - Password Reset Fields
+    @Published var forgotPasswordInput: String = ""
+    @Published var newPassword: String = ""
+    @Published var confirmNewPassword: String = ""
+    
+    // MARK: - Private State
+    private var timerCancellable: AnyCancellable?
+    
+    // MARK: - Computed Properties
     var isAuthenticated: Bool {
-        if case .authenticated = authState { return true }
-        return false
+        flowState == .authenticated && currentUser != nil
     }
     
     var isLoginFormValid: Bool {
-        !email.isEmpty && !password.isEmpty && password.count >= 6
-    }
-    
-    var isSignUpFormValid: Bool {
-        !fullName.isEmpty &&
-        !email.isEmpty &&
-        !password.isEmpty &&
-        password == confirmPassword &&
+        !email.trimmingCharacters(in: .whitespaces).isEmpty &&
         password.count >= 6
     }
     
-    // MARK: - Private
-    private var cancellables = Set<AnyCancellable>()
+    var isSignUpFormValid: Bool {
+        !fullName.trimmingCharacters(in: .whitespaces).isEmpty &&
+        !emailOrPhone.trimmingCharacters(in: .whitespaces).isEmpty &&
+        password.count >= 8 &&
+        password == confirmPassword
+    }
+    
+    var isNewPasswordValid: Bool {
+        newPassword.count >= 8 &&
+        newPassword == confirmNewPassword &&
+        newPassword.rangeOfCharacter(from: .uppercaseLetters) != nil &&
+        newPassword.rangeOfCharacter(from: .decimalDigits) != nil
+    }
+    
+    var formattedCountdown: String {
+        String(format: "00:%02d", resendCountdown)
+    }
     
     // MARK: - Init
     init() {
-        checkAuthStatus()
+        checkSession()
     }
     
-    // MARK: - Methods
-    
-    /// Check if user is already logged in
-    func checkAuthStatus() {
-        // TODO: Integrate with Firebase Auth
-        // For now, default to unauthenticated
-        authState = .unauthenticated
+    // MARK: - Flow Navigation Methods
+    func navigateTo(_ state: AuthFlowState) {
+        errorMessage = nil
+        successMessage = nil
+        otpCode = ""
+        flowState = state
+        
+        if state == .verifySignUpOTP || state == .verifyResetOTP {
+            startResendTimer()
+        } else {
+            stopResendTimer()
+        }
     }
     
-    /// Sign in with email and password
+    // MARK: - Session Lifecycle
+    func checkSession() {
+        isLoading = true
+        flowState = .splash
+        
+        Task {
+            // Simulated session check delay (1 second splash screen)
+            try? await Task.sleep(nanoseconds: 1_000_000_000)
+            
+            // In initial launch, route to login screen
+            self.isLoading = false
+            self.flowState = .login
+        }
+    }
+    
+    // MARK: - Sign In
     func signIn() async {
-        guard isLoginFormValid else { return }
+        guard isLoginFormValid else {
+            errorMessage = "Please enter a valid email and password."
+            return
+        }
+        
         isLoading = true
         errorMessage = nil
         
         do {
-            // TODO: Replace with Firebase Auth call
-            try await Task.sleep(nanoseconds: 1_000_000_000) // Simulated delay
+            // Simulated network authentication delay (Firebase Auth integration point)
+            try await Task.sleep(nanoseconds: 900_000_000)
             
-            // Mock successful login
             let user = User.mockPatient
-            currentUser = user
-            authState = .authenticated(user)
+            self.currentUser = user
+            self.flowState = .authenticated
         } catch {
-            errorMessage = "Sign in failed. Please check your credentials."
-            authState = .error(error.localizedDescription)
+            errorMessage = "Invalid credentials. Please verify your email and password."
         }
         
         isLoading = false
     }
     
-    /// Create a new account
-    func signUp() async {
-        guard isSignUpFormValid else { return }
+    // MARK: - Biometric (Face ID) Authentication
+    func signInWithFaceID() async {
+        isBiometricLoading = true
+        errorMessage = nil
+        
+        do {
+            let success = try await BiometricAuthService.shared.authenticate(
+                reason: "Sign in to MediConnect to manage your healthcare appointments."
+            )
+            
+            if success {
+                let user = User.mockPatient
+                self.currentUser = user
+                self.flowState = .authenticated
+            }
+        } catch {
+            errorMessage = error.localizedDescription
+        }
+        
+        isBiometricLoading = false
+    }
+    
+    // MARK: - Registration Flow
+    func createAccount() async {
+        guard isSignUpFormValid else {
+            if password != confirmPassword {
+                errorMessage = "Passwords do not match."
+            } else if password.count < 8 {
+                errorMessage = "Password must be at least 8 characters long."
+            } else {
+                errorMessage = "Please fill in all required fields."
+            }
+            return
+        }
+        
         isLoading = true
         errorMessage = nil
         
         do {
-            // TODO: Replace with Firebase Auth call
-            try await Task.sleep(nanoseconds: 1_200_000_000) // Simulated delay
+            try await Task.sleep(nanoseconds: 800_000_000)
             
-            // Mock successful sign up
+            // Mask contact for display in verification screen
+            maskedContact = maskContact(emailOrPhone)
+            navigateTo(.verifySignUpOTP)
+        } catch {
+            errorMessage = "Failed to create account. Please try again."
+        }
+        
+        isLoading = false
+    }
+    
+    // MARK: - Verify Account OTP
+    func verifySignUpOTP() async {
+        guard otpCode.count == 6 else {
+            errorMessage = "Please enter all 6 digits of the confirmation code."
+            return
+        }
+        
+        isLoading = true
+        errorMessage = nil
+        
+        do {
+            try await Task.sleep(nanoseconds: 800_000_000)
+            
+            // Create user entity upon successful verification
             let newUser = User(
-                id: UUID().uuidString,
+                id: "user-" + UUID().uuidString.prefix(8).lowercased(),
                 fullName: fullName,
-                email: email,
+                email: emailOrPhone.contains("@") ? emailOrPhone : "patient@mediconnect.app",
+                phoneNumber: emailOrPhone.contains("@") ? nil : emailOrPhone,
                 role: selectedRole,
                 createdAt: Date()
             )
-            currentUser = newUser
-            authState = .authenticated(newUser)
+            self.currentUser = newUser
+            self.flowState = .authenticated
         } catch {
-            errorMessage = "Sign up failed. Please try again."
-            authState = .error(error.localizedDescription)
+            errorMessage = "Invalid verification code. Please check and try again."
         }
         
         isLoading = false
     }
     
-    /// Sign out the current user
-    func signOut() {
-        // TODO: Firebase Auth signOut
-        currentUser = nil
-        authState = .unauthenticated
-        clearForm()
-    }
-    
-    /// Reset password via email
-    func resetPassword() async {
-        guard !email.isEmpty else { return }
+    // MARK: - Forgot Password Flow
+    func sendForgotPasswordCode() async {
+        let input = forgotPasswordInput.trimmingCharacters(in: .whitespaces)
+        guard !input.isEmpty else {
+            errorMessage = "Please enter your registered email or phone number."
+            return
+        }
+        
         isLoading = true
+        errorMessage = nil
         
         do {
-            // TODO: Firebase password reset
             try await Task.sleep(nanoseconds: 800_000_000)
-            // Show success message
+            maskedContact = maskContact(input)
+            navigateTo(.verifyResetOTP)
         } catch {
-            errorMessage = "Password reset failed. Try again."
+            errorMessage = "Could not send reset code. Please try again."
         }
         
         isLoading = false
     }
     
-    // MARK: - Helpers
-    private func clearForm() {
+    // MARK: - Verify Reset Code OTP
+    func verifyResetOTP() async {
+        guard otpCode.count == 6 else {
+            errorMessage = "Please enter all 6 digits of the verification code."
+            return
+        }
+        
+        isLoading = true
+        errorMessage = nil
+        
+        do {
+            try await Task.sleep(nanoseconds: 800_000_000)
+            navigateTo(.createNewPassword)
+        } catch {
+            errorMessage = "Invalid verification code. Try again."
+        }
+        
+        isLoading = false
+    }
+    
+    // MARK: - Reset Password
+    func resetNewPassword() async {
+        guard isNewPasswordValid else {
+            if newPassword != confirmNewPassword {
+                errorMessage = "Passwords do not match."
+            } else {
+                errorMessage = "Password does not satisfy all security criteria."
+            }
+            return
+        }
+        
+        isLoading = true
+        errorMessage = nil
+        
+        do {
+            try await Task.sleep(nanoseconds: 900_000_000)
+            successMessage = "Your password has been reset successfully. Please sign in."
+            navigateTo(.login)
+        } catch {
+            errorMessage = "Failed to update password. Please try again."
+        }
+        
+        isLoading = false
+    }
+    
+    // MARK: - OTP Timer & Resend
+    func startResendTimer() {
+        resendCountdown = 30
+        canResendCode = false
+        timerCancellable?.cancel()
+        
+        timerCancellable = Timer.publish(every: 1.0, on: .main, in: .common)
+            .autoconnect()
+            .sink { [weak self] _ in
+                guard let self = self else { return }
+                if self.resendCountdown > 1 {
+                    self.resendCountdown -= 1
+                } else {
+                    self.resendCountdown = 0
+                    self.canResendCode = true
+                    self.timerCancellable?.cancel()
+                }
+            }
+    }
+    
+    func stopResendTimer() {
+        timerCancellable?.cancel()
+        timerCancellable = nil
+    }
+    
+    func resendOTP() async {
+        guard canResendCode else { return }
+        errorMessage = nil
+        
+        do {
+            try await Task.sleep(nanoseconds: 600_000_000)
+            startResendTimer()
+        } catch {
+            errorMessage = "Could not resend code. Please try again later."
+        }
+    }
+    
+    // MARK: - Sign Out
+    func signOut() {
+        currentUser = nil
+        flowState = .login
         email = ""
         password = ""
         fullName = ""
+        emailOrPhone = ""
         confirmPassword = ""
+        otpCode = ""
+        forgotPasswordInput = ""
+        newPassword = ""
+        confirmNewPassword = ""
+        errorMessage = nil
+        successMessage = nil
+    }
+    
+    // MARK: - Helper Formatting
+    private func maskContact(_ contact: String) -> String {
+        let trimmed = contact.trimmingCharacters(in: .whitespaces)
+        if trimmed.contains("@") {
+            let parts = trimmed.components(separatedBy: "@")
+            guard let name = parts.first, let domain = parts.last else { return trimmed }
+            let prefix = String(name.prefix(2))
+            return "\(prefix)******@\(domain)"
+        } else {
+            // Mask phone number
+            if trimmed.count > 4 {
+                let suffix = String(trimmed.suffix(3))
+                return "+94 77******\(suffix)"
+            }
+            return trimmed
+        }
     }
 }

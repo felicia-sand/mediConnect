@@ -5,6 +5,9 @@
 
 import SwiftUI
 import Foundation
+#if canImport(UIKit)
+import UIKit
+#endif
 
 // MARK: - Color Extensions
 extension Color {
@@ -85,12 +88,16 @@ extension View {
     
     /// Hide keyboard on tap
     func hideKeyboardOnTap() -> some View {
-        self.onTapGesture {
+        #if canImport(UIKit)
+        return self.onTapGesture {
             UIApplication.shared.sendAction(
                 #selector(UIResponder.resignFirstResponder),
                 to: nil, from: nil, for: nil
             )
         }
+        #else
+        return self
+        #endif
     }
     
     /// Conditional modifier

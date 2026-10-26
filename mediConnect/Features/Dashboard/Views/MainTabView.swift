@@ -82,6 +82,10 @@ struct ProfileView: View {
     }
 }
 
-#Preview {
-    MainTabView()
+#if DEBUG
+struct MainTabView_Previews: PreviewProvider {
+    static var previews: some View {
+        MainTabView()
+    }
 }
+#endif
