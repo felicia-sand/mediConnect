@@ -54,6 +54,7 @@
 		BF0000000000000000002d /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF0000000000000000002d /* User.swift */; };
 		BF0000000000000000002e /* QueueActivityAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF0000000000000000002e /* QueueActivityAttributes.swift */; };
 		BF0000000000000000002f /* UpcomingAppointmentWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF0000000000000000002f /* UpcomingAppointmentWidget.swift */; };
+		BF_PLIST000000000000000001 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = FF_PLIST000000000000000001 /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -104,6 +105,7 @@
 		FF0000000000000000002d /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "mediConnect/Models/User.swift"; sourceTree = "<group>"; };
 		FF0000000000000000002e /* QueueActivityAttributes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "mediConnect/Widgets/QueueActivityAttributes.swift"; sourceTree = "<group>"; };
 		FF0000000000000000002f /* UpcomingAppointmentWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "mediConnect/Widgets/UpcomingAppointmentWidget.swift"; sourceTree = "<group>"; };
+		FF_PLIST000000000000000001 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "mediConnect/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		TARGET_PRODUCT /* mediConnect.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = mediConnect.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -176,6 +178,7 @@
 				FF0000000000000000002d /* User.swift */,
 				FF0000000000000000002e /* QueueActivityAttributes.swift */,
 				FF0000000000000000002f /* UpcomingAppointmentWidget.swift */,
+				FF_PLIST000000000000000001 /* GoogleService-Info.plist */,
 			);
 			sourceTree = "<group>";
 		};
@@ -245,6 +248,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BF_PLIST000000000000000001 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
