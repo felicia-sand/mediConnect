@@ -129,10 +129,8 @@ final class AuthViewModel: ObservableObject {
         errorMessage = nil
         
         do {
-            // Simulated network authentication delay (Firebase Auth integration point)
-            try await Task.sleep(nanoseconds: 900_000_000)
-            
-            let user = User.mockPatient
+            try await Task.sleep(nanoseconds: 800_000_000)
+            let user = try await FirebaseAuthService.shared.signIn(email: email, password: password)
             self.currentUser = user
             self.flowState = .authenticated
         } catch {
@@ -206,14 +204,12 @@ final class AuthViewModel: ObservableObject {
         do {
             try await Task.sleep(nanoseconds: 800_000_000)
             
-            // Create user entity upon successful verification
-            let newUser = User(
-                id: "user-" + UUID().uuidString.prefix(8).lowercased(),
+            // Create user entity via Firebase Auth & Firestore
+            let newUser = try await FirebaseAuthService.shared.signUp(
                 fullName: fullName,
                 email: emailOrPhone.contains("@") ? emailOrPhone : "patient@mediconnect.app",
-                phoneNumber: emailOrPhone.contains("@") ? nil : emailOrPhone,
-                role: selectedRole,
-                createdAt: Date()
+                password: password,
+                role: selectedRole
             )
             self.currentUser = newUser
             self.flowState = .authenticated
@@ -330,6 +326,7 @@ final class AuthViewModel: ObservableObject {
     
     // MARK: - Sign Out
     func signOut() {
+        try? FirebaseAuthService.shared.signOut()
         currentUser = nil
         flowState = .login
         email = ""

@@ -167,6 +167,9 @@ final class BookingViewModel: ObservableObject {
                 createdAt: Date()
             )
             
+            // Commit to Cloud Firestore database
+            try await FirestoreService.shared.createAppointment(newAppointment)
+            
             self.confirmedAppointment = newAppointment
             self.isBookingConfirmed = true
         } catch {
