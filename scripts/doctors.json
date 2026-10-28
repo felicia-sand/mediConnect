@@ -1,0 +1,189 @@
+[
+  {
+    "user" : {
+      "role" : "doctor",
+      "fullName" : "Dr. Nimal Perera",
+      "id" : "user-doc-001",
+      "email" : "nimal.perera@lankaheart.lk",
+      "createdAt" : 814909188.845984,
+      "phoneNumber" : "+94 11 258 4500"
+    },
+    "yearsOfExperience" : 15,
+    "hospital" : "Lanka Heart Care Clinic (Room 204)",
+    "nextAvailableSlotText" : "Today, 3:00 PM",
+    "spokenLanguages" : [
+      "English",
+      "Sinhala"
+    ],
+    "reviewCount" : 312,
+    "rating" : 4.9,
+    "subSpecialty" : "Adult Interventional",
+    "distanceKm" : 1.8,
+    "availableSlots" : [
+      {
+        "id" : "s-1",
+        "timeString" : "3:00 PM",
+        "date" : 814909188.845987,
+        "isBooked" : false,
+        "isSelected" : false
+      },
+      {
+        "id" : "s-2",
+        "timeString" : "3:30 PM",
+        "date" : 814909188.845987,
+        "isBooked" : false,
+        "isSelected" : false
+      },
+      {
+        "id" : "s-3",
+        "timeString" : "4:00 PM",
+        "date" : 814909188.845987,
+        "isBooked" : false,
+        "isSelected" : true
+      },
+      {
+        "id" : "s-4",
+        "timeString" : "4:30 PM",
+        "date" : 814909188.845987,
+        "isBooked" : true,
+        "isSelected" : false
+      },
+      {
+        "date" : 814909188.845987,
+        "timeString" : "5:00 PM",
+        "isBooked" : false,
+        "isSelected" : false,
+        "id" : "s-5"
+      },
+      {
+        "id" : "s-6",
+        "isSelected" : false,
+        "timeString" : "5:30 PM",
+        "isBooked" : true,
+        "date" : 814909188.845987
+      }
+    ],
+    "id" : "doc-001",
+    "isAvailableForVideo" : true,
+    "locationArea" : "Colombo 05",
+    "consultationFee" : 3500,
+    "specialization" : "Cardiology",
+    "clinicName" : "Lanka Heart Care Clinic",
+    "bio" : "Dr. Nimal Perera is a senior consultant cardiologist specializing in interventional and preventive cardiac care with over 15 years of clinical practice.",
+    "qualifications" : [
+      "MBBS (Colombo)",
+      "MD (Cardiology)",
+      "FRCP (UK)",
+      "FACC"
+    ]
+  },
+  {
+    "spokenLanguages" : [
+      "English",
+      "Sinhala",
+      "Tamil"
+    ],
+    "hospital" : "Asiri Central Health Care",
+    "consultationFee" : 3200,
+    "locationArea" : "Colombo 07",
+    "clinicName" : "Asiri Central Health Care",
+    "user" : {
+      "role" : "doctor",
+      "email" : "sarah.fernando@asiri.lk",
+      "id" : "user-doc-002",
+      "fullName" : "Dr. Sarah Fernando",
+      "phoneNumber" : "+94 11 466 5500",
+      "createdAt" : 814909188.845999
+    },
+    "reviewCount" : 198,
+    "bio" : "Consultant in preventive cardiovascular medicine focusing on hypertension, lipid management, and lifestyle cardiology.",
+    "nextAvailableSlotText" : "Tomorrow, 10:00 AM",
+    "qualifications" : [
+      "MBBS",
+      "MRCP (London)",
+      "Board Certified in Cardiology"
+    ],
+    "isAvailableForVideo" : true,
+    "yearsOfExperience" : 11,
+    "distanceKm" : 3.2,
+    "id" : "doc-002",
+    "specialization" : "Cardiology",
+    "subSpecialty" : "Preventive Cardiology",
+    "rating" : 4.8,
+    "availableSlots" : [
+
+    ]
+  },
+  {
+    "bio" : "Expert in advanced heart failure therapies, echocardiography, and non-invasive cardiovascular diagnostics.",
+    "qualifications" : [
+      "MBBS",
+      "MD",
+      "Fellow of Heart Failure Society of America"
+    ],
+    "locationArea" : "Colombo 02",
+    "isAvailableForVideo" : false,
+    "spokenLanguages" : [
+      "English",
+      "Sinhala"
+    ],
+    "consultationFee" : 3000,
+    "yearsOfExperience" : 14,
+    "specialization" : "Cardiology",
+    "subSpecialty" : "Heart Failure Specialist",
+    "hospital" : "Nawaloka Medicare Center",
+    "rating" : 4.7,
+    "id" : "doc-003",
+    "clinicName" : "Nawaloka Medicare Center",
+    "nextAvailableSlotText" : "Tomorrow, 2:30 PM",
+    "availableSlots" : [
+
+    ],
+    "distanceKm" : 4.5,
+    "user" : {
+      "role" : "doctor",
+      "email" : "kavindu.silva@nawaloka.lk",
+      "id" : "user-doc-003",
+      "fullName" : "Dr. Kavindu Silva",
+      "phoneNumber" : "+94 11 544 4444",
+      "createdAt" : 814909188.846
+    },
+    "reviewCount" : 164
+  },
+  {
+    "hospital" : "Durdans Hospital Heart Centre",
+    "consultationFee" : 4000,
+    "specialization" : "Cardiology",
+    "distanceKm" : 5.1,
+    "yearsOfExperience" : 18,
+    "rating" : 4.95,
+    "user" : {
+      "role" : "doctor",
+      "email" : "anoma.wijesinghe@durdans.lk",
+      "id" : "user-doc-004",
+      "fullName" : "Dr. Anoma Wijesinghe",
+      "phoneNumber" : "+94 11 214 0000",
+      "createdAt" : 814909188.846
+    },
+    "reviewCount" : 420,
+    "qualifications" : [
+      "MBBS",
+      "MD (Paediatrics)",
+      "FRCPCH (UK)"
+    ],
+    "isAvailableForVideo" : true,
+    "nextAvailableSlotText" : "Friday, 9:00 AM",
+    "spokenLanguages" : [
+      "English",
+      "Sinhala"
+    ],
+    "id" : "doc-004",
+    "clinicName" : "Durdans Hospital Heart Centre",
+    "locationArea" : "Colombo 03",
+    "subSpecialty" : "Pediatric Cardiology",
+    "bio" : "Leading pediatric cardiologist with expertise in congenital heart disease and pediatric cardiac interventions.",
+    "availableSlots" : [
+
+    ]
+  }
+]

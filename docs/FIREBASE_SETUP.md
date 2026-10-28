@@ -8,7 +8,7 @@ This guide outlines how to connect a live **Google Cloud Firebase** backend to t
 
 MediConnect uses a **Dual-Mode Repository Architecture**:
 - **Offline / Standalone Mode (Default):** Runs immediately without configuration using an in-memory repository pre-seeded with Sri Lankan clinical data.
-- **Cloud Firestore Mode:** When `GoogleService-Info.plist` is present, the app automatically connects to live Cloud Firestore collections and Firebase Authentication.
+- **Cloud Firestore Mode:** When `GoogleService-Info.plist` is present and Firebase packages are linked, the app connects to live Cloud Firestore collections and Firebase Authentication.
 
 ---
 
@@ -31,7 +31,7 @@ MediConnect uses a **Dual-Mode Repository Architecture**:
 3. Set the App Nickname: `MediConnect iOS`.
 4. Click **Register app**.
 5. Download **`GoogleService-Info.plist`**.
-6. Move the downloaded `GoogleService-Info.plist` into your local `mediConnect/` directory:
+6. Place `GoogleService-Info.plist` into your local `mediConnect/` directory:
    ```bash
    cp ~/Downloads/GoogleService-Info.plist /Users/user/Desktop/Felicia/mediConnect/mediConnect/
    ```
@@ -89,10 +89,10 @@ service cloud.firestore {
       allow write: if isAuthenticated();
     }
     
-    // Clinics Collection (Public read)
+    // Clinics Collection (Public read, authenticated write)
     match /clinics/{clinicId} {
       allow read: if true;
-      allow write: if false;
+      allow write: if isAuthenticated();
     }
     
     // Appointments Collection
@@ -110,25 +110,18 @@ service cloud.firestore {
 
 ---
 
-## 📦 Step 6: Add Firebase SDK via Swift Package Manager
+## 🌱 Step 6: Seed Clinical Data to Firestore
 
-In Xcode:
-1. Open `mediConnect.xcodeproj`.
-2. Click **File > Add Package Dependencies...**
-3. Paste the official repository URL:
-   ```text
-   https://github.com/firebase/firebase-ios-sdk
-   ```
-4. Select Dependency Rule: **Up to Next Major Version** (from `10.0.0` or `11.0.0`).
-5. In the package products dialog, select:
-   - **`FirebaseAuth`**
-   - **`FirebaseFirestore`**
-6. Click **Add Package**.
+Run the automated seeder script to populate all 4 specialist doctors, live queues, and hospitals:
+
+```bash
+python3 scripts/seed_firestore.py
+```
 
 ---
 
 ## ✅ Step 7: Verify Live Cloud Synchronization
 
-1. Press **`⌘ + R`** (`Cmd + R`) to launch the app in the iOS Simulator.
-2. Create a new user or book an appointment.
-3. Open the Firebase Console -> **Firestore Database** -> refresh to see documents appearing in the `users/` and `appointments/` collections in real-time!
+1. Press **`⌘ + R`** (`Cmd + R`) in Xcode to launch the app on your iOS Simulator.
+2. Sign up with a new patient account or book an appointment.
+3. Open your [Firebase Console](https://console.firebase.google.com/) -> **Firestore Database** -> see documents in `users/`, `doctors/`, and `queues/` updating in real-time!

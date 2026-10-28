@@ -1,0 +1,82 @@
+[
+  {
+    "postalCode" : "00500",
+    "isEmergencyCareAvailable" : true,
+    "distanceKm" : 1.8,
+    "specialties" : [
+      "Cardiology",
+      "Diagnostics",
+      "Preventive Care"
+    ],
+    "openingHours" : "Open · Closes 7:30 PM",
+    "subtitle" : "Cardiology & Diagnostic Specialist Wing",
+    "city" : "Colombo 05",
+    "address" : "No. 45, Galle Road, Suite 2B",
+    "longitude" : 79.8565,
+    "id" : "clinic-001",
+    "driveTimeMinutes" : 7,
+    "phone" : "+94 11 258 4500",
+    "name" : "Lanka Heart Care Clinic",
+    "latitude" : 6.892
+  },
+  {
+    "postalCode" : "01000",
+    "isEmergencyCareAvailable" : true,
+    "distanceKm" : 3.2,
+    "specialties" : [
+      "Cardiology",
+      "General Practice",
+      "Neurology"
+    ],
+    "openingHours" : "Open 24 Hours",
+    "subtitle" : "Multispecialty Outpatient Center",
+    "city" : "Colombo 10",
+    "address" : "114 Norris Canal Rd",
+    "longitude" : 79.868,
+    "id" : "clinic-002",
+    "driveTimeMinutes" : 12,
+    "phone" : "+94 11 466 5500",
+    "name" : "Asiri Central Health Care",
+    "latitude" : 6.924
+  },
+  {
+    "postalCode" : "00200",
+    "isEmergencyCareAvailable" : false,
+    "distanceKm" : 4.5,
+    "specialties" : [
+      "General Practice",
+      "Pediatrics",
+      "Cardiology"
+    ],
+    "openingHours" : "Open · Closes 9:00 PM",
+    "subtitle" : "General Healthcare & Specialist Clinics",
+    "city" : "Colombo 02",
+    "address" : "Deshamanya H.K. Dharmadasa Mw",
+    "longitude" : 79.852,
+    "id" : "clinic-003",
+    "driveTimeMinutes" : 16,
+    "phone" : "+94 11 544 4444",
+    "name" : "Nawaloka Medicare Center",
+    "latitude" : 6.928
+  },
+  {
+    "postalCode" : "00300",
+    "isEmergencyCareAvailable" : true,
+    "distanceKm" : 5.1,
+    "specialties" : [
+      "Cardiology",
+      "Pediatric Cardiology",
+      "Orthopedic"
+    ],
+    "openingHours" : "Open 24 Hours",
+    "subtitle" : "Specialized Cardiac & Critical Care Unit",
+    "city" : "Colombo 03",
+    "address" : "3 Alfred Place",
+    "longitude" : 79.853,
+    "id" : "clinic-004",
+    "driveTimeMinutes" : 18,
+    "phone" : "+94 11 214 0000",
+    "name" : "Durdans Hospital Heart Centre",
+    "latitude" : 6.901
+  }
+]

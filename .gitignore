@@ -91,3 +91,7 @@ fastlane/test_output/
 *.xcresult
 *.xctest
 *.coverage
+
+## Python Scripts Cache
+__pycache__/
+*.py[cod]
