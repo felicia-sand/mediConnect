@@ -20,9 +20,25 @@ struct ProfileView: View {
     @State private var showNotificationSheet: Bool = false
     @State private var showSavedDoctorsSheet: Bool = false
     @State private var showAppearanceSheet: Bool = false
+    @State private var showMedicalHistorySheet: Bool = false
     @State private var showSignOutAlert: Bool = false
+    @State private var showSaveSuccessBanner: Bool = false
     
-    @State private var selectedAppearance: String = "System (Light)"
+    // Editable Profile State (Defaults to Felicia Gunasekara per specifications)
+    @State private var fullName: String = "Felicia Gunasekara"
+    @State private var nicNumber: String = "199854309821"
+    @State private var dateOfBirth: String = "14 August 1998 (26 yrs)"
+    @State private var gender: String = "Female"
+    @State private var bloodGroup: String = "O Positive (O+)"
+    @State private var phoneNumber: String = "+94 77 123 4567"
+    @State private var emailAddress: String = "felicia.gunasekara@gmail.com"
+    @State private var homeAddress: String = "No. 24, Flower Road, Colombo 07"
+    @State private var province: String = "Western Province"
+    @State private var emergencyContactName: String = "Mrs. N. Gunasekara"
+    @State private var emergencyContactPhone: String = "+94 71 987 6543"
+    
+    // Appearance persisted across app launches
+    @AppStorage("selectedTheme") private var selectedAppearance: String = "System (Light)"
     @State private var isFaceIDEnabled: Bool = true
     
     var body: some View {
@@ -39,16 +55,16 @@ struct ProfileView: View {
                         Button {
                             showPersonalInfoSheet = true
                         } label: {
-                            settingsRow(icon: "person.text.rectangle", title: "Personal Information", value: "NIC · Blood Group")
+                            settingsRow(icon: "person.text.rectangle", title: "Personal Information", value: fullName)
                         }
                         .buttonStyle(.plain)
                         
                         Divider().padding(.leading, 44)
                         
                         Button {
-                            showPersonalInfoSheet = true
+                            showMedicalHistorySheet = true
                         } label: {
-                            settingsRow(icon: "slider.horizontal.3", title: "Edit Health Profile", value: "")
+                            settingsRow(icon: "heart.text.square.fill", title: "Medical History & Prescriptions", value: "1 Record")
                         }
                         .buttonStyle(.plain)
                     }
@@ -160,6 +176,9 @@ struct ProfileView: View {
             .sheet(isPresented: $showPersonalInfoSheet) {
                 personalInfoSheetView
             }
+            .sheet(isPresented: $showMedicalHistorySheet) {
+                medicalHistorySheetView
+            }
             .sheet(isPresented: $showNotificationSheet) {
                 notificationSettingsSheetView
             }
@@ -201,11 +220,11 @@ struct ProfileView: View {
             .shadow(color: Color.black.opacity(0.08), radius: 6, x: 0, y: 3)
             
             VStack(spacing: 4) {
-                Text(authViewModel.currentUser?.fullName ?? "Pasindu Mathsara")
+                Text(fullName)
                     .font(.system(size: 20, weight: .bold))
                     .foregroundStyle(Color.mcTextPrimary)
                 
-                Text(authViewModel.currentUser?.email ?? "pasindu@example.com")
+                Text(emailAddress)
                     .font(.system(size: 13))
                     .foregroundStyle(Color.mcTextSecondary)
                 
@@ -279,41 +298,345 @@ struct ProfileView: View {
         .padding(.vertical, 14)
     }
     
-    // MARK: - Sub-Sheet 1: Personal Information
+    // MARK: - Sub-Sheet 1: Editable Personal Information
     private var personalInfoSheetView: some View {
         NavigationStack {
-            List {
+            Form {
                 Section("Identity & Demographics") {
-                    infoRow(label: "Full Name", value: "Pasindu Mathsara Gunasekera")
-                    infoRow(label: "Sri Lankan NIC", value: "199234509821 (Verified)")
-                    infoRow(label: "Date of Birth", value: "14 August 1992 (32 yrs)")
-                    infoRow(label: "Gender", value: "Male")
-                    infoRow(label: "Blood Group", value: "B Positive (B+)")
+                    HStack {
+                        Text("Full Name")
+                            .font(.system(size: 14, weight: .medium))
+                            .foregroundStyle(Color.mcTextSecondary)
+                            .frame(width: 100, alignment: .leading)
+                        TextField("Full Name", text: $fullName)
+                            .font(.system(size: 14, weight: .semibold))
+                            .foregroundStyle(Color.mcTextPrimary)
+                    }
+                    
+                    HStack {
+                        Text("NIC Number")
+                            .font(.system(size: 14, weight: .medium))
+                            .foregroundStyle(Color.mcTextSecondary)
+                            .frame(width: 100, alignment: .leading)
+                        TextField("NIC Number", text: $nicNumber)
+                            .font(.system(size: 14, weight: .semibold))
+                            .foregroundStyle(Color.mcTextPrimary)
+                    }
+                    
+                    HStack {
+                        Text("Date of Birth")
+                            .font(.system(size: 14, weight: .medium))
+                            .foregroundStyle(Color.mcTextSecondary)
+                            .frame(width: 100, alignment: .leading)
+                        TextField("Date of Birth", text: $dateOfBirth)
+                            .font(.system(size: 14, weight: .semibold))
+                            .foregroundStyle(Color.mcTextPrimary)
+                    }
+                    
+                    HStack {
+                        Text("Gender")
+                            .font(.system(size: 14, weight: .medium))
+                            .foregroundStyle(Color.mcTextSecondary)
+                            .frame(width: 100, alignment: .leading)
+                        TextField("Gender", text: $gender)
+                            .font(.system(size: 14, weight: .semibold))
+                            .foregroundStyle(Color.mcTextPrimary)
+                    }
+                    
+                    HStack {
+                        Text("Blood Group")
+                            .font(.system(size: 14, weight: .medium))
+                            .foregroundStyle(Color.mcTextSecondary)
+                            .frame(width: 100, alignment: .leading)
+                        TextField("Blood Group", text: $bloodGroup)
+                            .font(.system(size: 14, weight: .semibold))
+                            .foregroundStyle(Color.mcTextPrimary)
+                    }
                 }
                 
                 Section("Contact & Residence") {
-                    infoRow(label: "Mobile", value: "+94 77 123 4567")
-                    infoRow(label: "Email", value: "pasindu@example.com")
-                    infoRow(label: "Address", value: "No. 24, Flower Road, Colombo 07")
-                    infoRow(label: "Province", value: "Western Province")
+                    HStack {
+                        Text("Mobile")
+                            .font(.system(size: 14, weight: .medium))
+                            .foregroundStyle(Color.mcTextSecondary)
+                            .frame(width: 100, alignment: .leading)
+                        TextField("Mobile", text: $phoneNumber)
+                            .font(.system(size: 14, weight: .semibold))
+                            .foregroundStyle(Color.mcTextPrimary)
+                            .keyboardType(.phonePad)
+                    }
+                    
+                    HStack {
+                        Text("Email")
+                            .font(.system(size: 14, weight: .medium))
+                            .foregroundStyle(Color.mcTextSecondary)
+                            .frame(width: 100, alignment: .leading)
+                        TextField("Email", text: $emailAddress)
+                            .font(.system(size: 14, weight: .semibold))
+                            .foregroundStyle(Color.mcTextPrimary)
+                            .keyboardType(.emailAddress)
+                    }
+                    
+                    HStack {
+                        Text("Address")
+                            .font(.system(size: 14, weight: .medium))
+                            .foregroundStyle(Color.mcTextSecondary)
+                            .frame(width: 100, alignment: .leading)
+                        TextField("Address", text: $homeAddress)
+                            .font(.system(size: 14, weight: .semibold))
+                            .foregroundStyle(Color.mcTextPrimary)
+                    }
+                    
+                    HStack {
+                        Text("Province")
+                            .font(.system(size: 14, weight: .medium))
+                            .foregroundStyle(Color.mcTextSecondary)
+                            .frame(width: 100, alignment: .leading)
+                        TextField("Province", text: $province)
+                            .font(.system(size: 14, weight: .semibold))
+                            .foregroundStyle(Color.mcTextPrimary)
+                    }
                 }
                 
                 Section("Emergency Contact") {
-                    infoRow(label: "Name", value: "Mrs. Nirmala Mathsara")
-                    infoRow(label: "Relationship", value: "Mother")
-                    infoRow(label: "Phone", value: "+94 71 987 6543")
+                    HStack {
+                        Text("Name")
+                            .font(.system(size: 14, weight: .medium))
+                            .foregroundStyle(Color.mcTextSecondary)
+                            .frame(width: 100, alignment: .leading)
+                        TextField("Emergency Contact Name", text: $emergencyContactName)
+                            .font(.system(size: 14, weight: .semibold))
+                            .foregroundStyle(Color.mcTextPrimary)
+                    }
+                    
+                    HStack {
+                        Text("Phone")
+                            .font(.system(size: 14, weight: .medium))
+                            .foregroundStyle(Color.mcTextSecondary)
+                            .frame(width: 100, alignment: .leading)
+                        TextField("Emergency Contact Phone", text: $emergencyContactPhone)
+                            .font(.system(size: 14, weight: .semibold))
+                            .foregroundStyle(Color.mcTextPrimary)
+                            .keyboardType(.phonePad)
+                    }
+                }
+                
+                Section {
+                    Button {
+                        // Persist to user session
+                        if var user = authViewModel.currentUser {
+                            user.fullName = fullName
+                            user.email = emailAddress
+                            user.phoneNumber = phoneNumber
+                            authViewModel.currentUser = user
+                            Task { try? await FirestoreService.shared.saveUser(user) }
+                        }
+                        authViewModel.fullName = fullName
+                        showPersonalInfoSheet = false
+                    } label: {
+                        HStack {
+                            Spacer()
+                            Text("Save Changes")
+                                .font(.system(size: 15, weight: .bold))
+                                .foregroundStyle(.white)
+                            Spacer()
+                        }
+                        .frame(height: 44)
+                        .background(Color.mcTeal)
+                        .clipShape(RoundedRectangle(cornerRadius: 10))
+                    }
+                    .buttonStyle(.plain)
                 }
             }
             .navigationTitle("Personal Information")
             .inlineNavigationBarTitle()
             .toolbar {
                 ToolbarItem(placement: .confirmationAction) {
-                    Button("Done") {
+                    Button("Save") {
+                        if var user = authViewModel.currentUser {
+                            user.fullName = fullName
+                            user.email = emailAddress
+                            user.phoneNumber = phoneNumber
+                            authViewModel.currentUser = user
+                            Task { try? await FirestoreService.shared.saveUser(user) }
+                        }
+                        authViewModel.fullName = fullName
+                        showPersonalInfoSheet = false
+                    }
+                    .fontWeight(.bold)
+                    .foregroundStyle(Color.mcTeal)
+                }
+                ToolbarItem(placement: .cancellationAction) {
+                    Button("Cancel") {
                         showPersonalInfoSheet = false
                     }
                 }
             }
         }
+    }
+    
+    // MARK: - Sub-Sheet 2: Medical History & Prescriptions (Proposal Requirement)
+    private var medicalHistorySheetView: some View {
+        NavigationStack {
+            ScrollView(showsIndicators: false) {
+                VStack(spacing: 18) {
+                    
+                    // Patient Header Overview
+                    HStack {
+                        VStack(alignment: .leading, spacing: 3) {
+                            Text(fullName)
+                                .font(.system(size: 18, weight: .bold))
+                                .foregroundStyle(Color.mcTextPrimary)
+                            Text("NIC: \(nicNumber) · Blood: \(bloodGroup)")
+                                .font(.system(size: 12))
+                                .foregroundStyle(Color.mcTextSecondary)
+                        }
+                        Spacer()
+                        Image(systemName: "checkmark.shield.fill")
+                            .font(.system(size: 24))
+                            .foregroundStyle(Color.mcStatusGreen)
+                    }
+                    .padding(16)
+                    .background(Color.mcTealLight)
+                    .clipShape(RoundedRectangle(cornerRadius: 14))
+                    
+                    // Visit Record Card 1
+                    medicalRecordCard(
+                        date: "Yesterday · 28 Oct 2026",
+                        doctor: "Dr. Nimal Perera (Cardiology)",
+                        clinic: "Lanka Heart Care Clinic (Room 204)",
+                        diagnosis: "Mild Essential Hypertension (Stable)",
+                        vitals: "BP: 120/80 mmHg · Pulse: 72 bpm · BMI: 22.4 · SpO2: 99%",
+                        notes: "Patient reports excellent tolerance to current medication. Blood pressure in target range. Continue current regimen with moderate cardio exercise.",
+                        medications: [
+                            ("Amlodipine Besylate 5mg", "1 tablet daily after breakfast (30 days)"),
+                            ("Atorvastatin Calcium 20mg", "1 tablet nightly after dinner (30 days)")
+                        ]
+                    )
+                    
+                    // Visit Record Card 2
+                    medicalRecordCard(
+                        date: "14 Sep 2026",
+                        doctor: "Dr. Sarah Fernando (General Practice)",
+                        clinic: "Asiri Central Health Care",
+                        diagnosis: "Annual Routine Health Check & Lipid Screening",
+                        vitals: "BP: 122/82 mmHg · Pulse: 70 bpm · Fasting Sugar: 92 mg/dL",
+                        notes: "Comprehensive cardiovascular screening completed. All biochemical markers within acceptable limits. Repeat review in 6 months.",
+                        medications: [
+                            ("Multivitamin + Minerals", "1 capsule daily after morning meal (60 days)")
+                        ]
+                    )
+                }
+                .padding(20)
+            }
+            .navigationTitle("Medical History")
+            .inlineNavigationBarTitle()
+            .toolbar {
+                ToolbarItem(placement: .confirmationAction) {
+                    Button("Done") {
+                        showMedicalHistorySheet = false
+                    }
+                }
+            }
+        }
+    }
+    
+    private func medicalRecordCard(
+        date: String,
+        doctor: String,
+        clinic: String,
+        diagnosis: String,
+        vitals: String,
+        notes: String,
+        medications: [(String, String)]
+    ) -> some View {
+        VStack(alignment: .leading, spacing: 14) {
+            
+            // Header
+            HStack {
+                VStack(alignment: .leading, spacing: 2) {
+                    Text(doctor)
+                        .font(.system(size: 15, weight: .bold))
+                        .foregroundStyle(Color.mcTextPrimary)
+                    Text("\(clinic) · \(date)")
+                        .font(.system(size: 12))
+                        .foregroundStyle(Color.mcTextSecondary)
+                }
+                Spacer()
+                Text("Completed")
+                    .font(.system(size: 11, weight: .bold))
+                    .foregroundStyle(Color.mcStatusGreen)
+                    .padding(.horizontal, 8)
+                    .padding(.vertical, 3)
+                    .background(Color.mcStatusGreenBg)
+                    .clipShape(Capsule())
+            }
+            
+            Divider()
+            
+            // Diagnosis
+            VStack(alignment: .leading, spacing: 4) {
+                Text("DIAGNOSIS")
+                    .font(.system(size: 10, weight: .bold))
+                    .foregroundStyle(Color.mcTextLabel)
+                Text(diagnosis)
+                    .font(.system(size: 13, weight: .semibold))
+                    .foregroundStyle(Color.mcTeal)
+            }
+            
+            // Recorded Vitals
+            VStack(alignment: .leading, spacing: 4) {
+                Text("CLINICAL VITALS")
+                    .font(.system(size: 10, weight: .bold))
+                    .foregroundStyle(Color.mcTextLabel)
+                Text(vitals)
+                    .font(.system(size: 12))
+                    .foregroundStyle(Color.mcTextSecondary)
+            }
+            
+            // Prescriptions
+            VStack(alignment: .leading, spacing: 6) {
+                Text("PRESCRIBED MEDICATIONS")
+                    .font(.system(size: 10, weight: .bold))
+                    .foregroundStyle(Color.mcTextLabel)
+                
+                ForEach(medications, id: \.0) { med in
+                    HStack(spacing: 8) {
+                        Image(systemName: "pills.fill")
+                            .font(.system(size: 12))
+                            .foregroundStyle(Color.mcTeal)
+                        VStack(alignment: .leading, spacing: 1) {
+                            Text(med.0)
+                                .font(.system(size: 13, weight: .semibold))
+                                .foregroundStyle(Color.mcTextPrimary)
+                            Text(med.1)
+                                .font(.system(size: 11))
+                                .foregroundStyle(Color.mcTextSecondary)
+                        }
+                    }
+                    .padding(.vertical, 2)
+                }
+            }
+            
+            // Clinical Notes
+            VStack(alignment: .leading, spacing: 4) {
+                Text("PHYSICIAN NOTES")
+                    .font(.system(size: 10, weight: .bold))
+                    .foregroundStyle(Color.mcTextLabel)
+                Text(notes)
+                    .font(.system(size: 12))
+                    .foregroundStyle(Color.mcTextSecondary)
+                    .lineSpacing(2)
+            }
+        }
+        .padding(16)
+        .background(Color.mcCardBg)
+        .clipShape(RoundedRectangle(cornerRadius: 14))
+        .overlay(
+            RoundedRectangle(cornerRadius: 14)
+                .stroke(Color.mcBorderLight, lineWidth: 1)
+        )
+        .shadow(color: Color.black.opacity(0.02), radius: 4, x: 0, y: 1)
     }
     
     // MARK: - Sub-Sheet 2: Notification Preferences

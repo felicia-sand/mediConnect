@@ -19,7 +19,7 @@ struct AppointmentsListView: View {
                 // Segmented Control
                 Picker("Appointments", selection: $selectedSegment) {
                     Text("Upcoming (1)").tag(0)
-                    Text("Past (1)").tag(1)
+                    Text("Medical History (1)").tag(1)
                 }
                 .pickerStyle(.segmented)
                 .padding(.horizontal, 20)
@@ -133,6 +133,33 @@ struct AppointmentsListView: View {
                 .clipShape(RoundedRectangle(cornerRadius: 10))
             }
             
+            // Clinical Summary if completed (Medical History view)
+            if appointment.status == .completed {
+                VStack(alignment: .leading, spacing: 6) {
+                    HStack(spacing: 6) {
+                        Image(systemName: "cross.case.fill")
+                            .font(.system(size: 11))
+                            .foregroundStyle(Color.mcTeal)
+                        Text("Diagnosis: Mild Essential Hypertension (Stable)")
+                            .font(.system(size: 12, weight: .semibold))
+                            .foregroundStyle(Color.mcTextPrimary)
+                    }
+                    
+                    HStack(spacing: 6) {
+                        Image(systemName: "pills.fill")
+                            .font(.system(size: 11))
+                            .foregroundStyle(Color.mcStatusGreen)
+                        Text("Rx: Amlodipine 5mg (Daily) · Atorvastatin 20mg (Night)")
+                            .font(.system(size: 11))
+                            .foregroundStyle(Color.mcTextSecondary)
+                    }
+                }
+                .padding(10)
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .background(Color.mcTealLight.opacity(0.5))
+                .clipShape(RoundedRectangle(cornerRadius: 10))
+            }
+            
             // Schedule & Time Info
             HStack {
                 HStack(spacing: 6) {
@@ -152,7 +179,7 @@ struct AppointmentsListView: View {
             .foregroundStyle(Color.mcTextPrimary)
         }
         .padding(16)
-        .background(Color.white)
+        .background(Color.mcCardBg)
         .clipShape(RoundedRectangle(cornerRadius: 16))
         .overlay(
             RoundedRectangle(cornerRadius: 16)

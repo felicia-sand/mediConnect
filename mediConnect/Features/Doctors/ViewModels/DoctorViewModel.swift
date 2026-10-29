@@ -31,8 +31,8 @@ final class DoctorViewModel: ObservableObject {
     // MARK: - Published Search & Filter State
     @Published var allDoctors: [Doctor] = []
     @Published var searchText: String = ""
-    @Published var selectedSpecialty: Specialization? = .cardiology
-    @Published var maxDistanceKm: Double? = 5.0
+    @Published var selectedSpecialty: Specialization? = nil
+    @Published var maxDistanceKm: Double? = nil
     @Published var onlyNextAvailable: Bool = false
     @Published var sortOption: DoctorSortOption = .distance
     

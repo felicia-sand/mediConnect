@@ -8,14 +8,13 @@ import SwiftUI
 struct DoctorCardView: View {
     
     let doctor: Doctor
-    let onSelect: () -> Void
+    var onSelect: (() -> Void)? = nil
     
     var body: some View {
-        Button(action: onSelect) {
-            VStack(alignment: .leading, spacing: 12) {
-                
-                // Top Header Row
-                HStack(alignment: .top, spacing: 14) {
+        VStack(alignment: .leading, spacing: 12) {
+            
+            // Top Header Row
+            HStack(alignment: .top, spacing: 14) {
                     
                     // Doctor Avatar
                     ZStack {
@@ -96,15 +95,14 @@ struct DoctorCardView: View {
                 .padding(.top, 2)
             }
             .padding(14)
-            .background(Color.white)
+            .background(Color.mcCardBg)
             .clipShape(RoundedRectangle(cornerRadius: 14))
             .overlay(
                 RoundedRectangle(cornerRadius: 14)
                     .stroke(Color.mcBorderLight, lineWidth: 1)
             )
             .shadow(color: Color.black.opacity(0.03), radius: 6, x: 0, y: 2)
-        }
-        .buttonStyle(.plain)
+            .contentShape(Rectangle())
     }
 }
 

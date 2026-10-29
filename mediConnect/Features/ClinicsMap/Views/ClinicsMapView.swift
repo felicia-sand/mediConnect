@@ -19,6 +19,7 @@ struct ClinicsMapView: View {
     @State private var selectedFilter: String = "All Clinics"
     @State private var showGeofenceAlert: Bool = false
     @State private var showCheckInSheet: Bool = false
+    @State private var showDirectionsSheet: Bool = false
     
     // Map camera region centered over Colombo healthcare hub
     @State private var region = MKCoordinateRegion(
@@ -86,6 +87,9 @@ struct ClinicsMapView: View {
             }
             .sheet(isPresented: $showCheckInSheet) {
                 CheckInSuccessView()
+            }
+            .sheet(isPresented: $showDirectionsSheet) {
+                clinicDirectionsSheetView
             }
         }
     }
@@ -304,9 +308,9 @@ struct ClinicsMapView: View {
             // Action Buttons Row
             HStack(spacing: 10) {
                 
-                // "Get Directions" in Apple Maps
+                // "Get Directions" in Apple Maps & Route View
                 Button {
-                    openDirections(to: selectedClinic)
+                    showDirectionsSheet = true
                 } label: {
                     HStack(spacing: 6) {
                         Image(systemName: "arrow.triangle.turn.up.right.diamond.fill")
@@ -347,7 +351,7 @@ struct ClinicsMapView: View {
             }
         }
         .padding(16)
-        .background(Color.white)
+        .background(Color.mcCardBg)
         .clipShape(RoundedRectangle(cornerRadius: 16))
         .overlay(
             RoundedRectangle(cornerRadius: 16)
@@ -356,6 +360,109 @@ struct ClinicsMapView: View {
         .shadow(color: Color.black.opacity(0.08), radius: 8, x: 0, y: -2)
         .padding(.horizontal, 20)
         .padding(.bottom, 12)
+    }
+    
+    // MARK: - In-App Route Guidance Sheet
+    private var clinicDirectionsSheetView: some View {
+        NavigationStack {
+            VStack(spacing: 20) {
+                // Header Route Card
+                VStack(alignment: .leading, spacing: 8) {
+                    HStack {
+                        Image(systemName: "cross.case.fill")
+                            .foregroundStyle(Color.mcTeal)
+                        Text(selectedClinic.name)
+                            .font(.system(size: 16, weight: .bold))
+                            .foregroundStyle(Color.mcTextPrimary)
+                    }
+                    
+                    Text(selectedClinic.address)
+                        .font(.system(size: 13))
+                        .foregroundStyle(Color.mcTextSecondary)
+                    
+                    HStack(spacing: 6) {
+                        Image(systemName: "car.fill")
+                            .font(.system(size: 12))
+                        Text("\(selectedClinic.formattedDistance) · \(selectedClinic.formattedDriveTime) via Galle Road")
+                            .font(.system(size: 13, weight: .semibold))
+                    }
+                    .foregroundStyle(Color.mcTeal)
+                    .padding(.top, 4)
+                }
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .padding(16)
+                .background(Color.mcTealLight)
+                .clipShape(RoundedRectangle(cornerRadius: 14))
+                
+                // Turn-by-Turn Route Guidance
+                VStack(alignment: .leading, spacing: 14) {
+                    Text("ROUTE GUIDANCE")
+                        .font(.system(size: 11, weight: .bold))
+                        .foregroundStyle(Color.mcTextLabel)
+                    
+                    stepRow(stepNumber: "1", instruction: "Depart from current location onto main road", distance: "400 m")
+                    stepRow(stepNumber: "2", instruction: "Continue south along Galle Road / Marine Drive", distance: "\(selectedClinic.formattedDistance)")
+                    stepRow(stepNumber: "3", instruction: "Arrive at \(selectedClinic.name). Parking available on-site.", distance: "100 m")
+                }
+                .padding(16)
+                .background(Color.mcCardBg)
+                .clipShape(RoundedRectangle(cornerRadius: 14))
+                .overlay(
+                    RoundedRectangle(cornerRadius: 14)
+                        .stroke(Color.mcBorderLight, lineWidth: 1)
+                )
+                
+                Spacer()
+                
+                // Open Apple Maps Button
+                Button {
+                    openDirections(to: selectedClinic)
+                } label: {
+                    HStack(spacing: 8) {
+                        Image(systemName: "arrow.triangle.turn.up.right.diamond.fill")
+                        Text("Start Navigation in Apple Maps")
+                            .font(.system(size: 15, weight: .bold))
+                    }
+                    .frame(maxWidth: .infinity)
+                    .frame(height: 50)
+                    .foregroundStyle(.white)
+                    .background(Color.mcTeal)
+                    .clipShape(RoundedRectangle(cornerRadius: 12))
+                }
+                .buttonStyle(.plain)
+            }
+            .padding(20)
+            .navigationTitle("Clinic Route & Directions")
+            .inlineNavigationBarTitle()
+            .toolbar {
+                ToolbarItem(placement: .confirmationAction) {
+                    Button("Done") {
+                        showDirectionsSheet = false
+                    }
+                }
+            }
+        }
+    }
+    
+    private func stepRow(stepNumber: String, instruction: String, distance: String) -> some View {
+        HStack(alignment: .top, spacing: 12) {
+            Text(stepNumber)
+                .font(.system(size: 12, weight: .bold))
+                .foregroundStyle(Color.mcTeal)
+                .frame(width: 24, height: 24)
+                .background(Color.mcTealLight)
+                .clipShape(Circle())
+            
+            VStack(alignment: .leading, spacing: 2) {
+                Text(instruction)
+                    .font(.system(size: 13, weight: .medium))
+                    .foregroundStyle(Color.mcTextPrimary)
+                Text(distance)
+                    .font(.system(size: 11))
+                    .foregroundStyle(Color.mcTextSecondary)
+            }
+            Spacer()
+        }
     }
     
     // MARK: - Native Apple Maps Directions

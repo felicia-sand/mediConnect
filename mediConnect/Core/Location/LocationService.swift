@@ -116,6 +116,7 @@ final class LocationService: NSObject, ObservableObject, CLLocationManagerDelega
         self.hasAutoCheckedIn = true
         self.checkInTimestamp = Date()
         self.userLocation = CLLocationCoordinate2D(latitude: clinic.latitude, longitude: clinic.longitude)
+        NotificationService.shared.dispatchArrivalNotification(for: clinic)
     }
     
     // MARK: - CLLocationManagerDelegate
@@ -147,6 +148,7 @@ final class LocationService: NSObject, ObservableObject, CLLocationManagerDelega
                 self.checkedInClinicId = clinic.id
                 self.hasAutoCheckedIn = true
                 self.checkInTimestamp = Date()
+                NotificationService.shared.dispatchArrivalNotification(for: clinic)
             }
         }
     }

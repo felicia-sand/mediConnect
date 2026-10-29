@@ -38,11 +38,11 @@ struct User: Identifiable, Codable, Hashable {
 extension User {
     static let mockPatient = User(
         id: "user-001",
-        fullName: "Pasindu Mathsara",
-        email: "pasindu@example.com",
+        fullName: "Felicia Gunasekara",
+        email: "felicia.gunasekara@gmail.com",
         phoneNumber: "+94 77 123 4567",
         role: .patient,
-        dateOfBirth: Calendar.current.date(from: DateComponents(year: 1995, month: 4, day: 20)),
+        dateOfBirth: Calendar.current.date(from: DateComponents(year: 1998, month: 8, day: 14)),
         createdAt: Date()
     )
     

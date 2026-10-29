@@ -120,6 +120,7 @@ final class QueueViewModel: ObservableObject {
                 alertTitle = "It's Your Turn! 🩺"
                 alertMessage = "Token \(patientQueueNumber) is now being called by \(doctorName). Please proceed immediately to \(roomNumber)."
                 showTurnAlert = true
+                NotificationService.shared.dispatchQueueSummonNotification(doctorName: doctorName, roomNumber: roomNumber, token: patientQueueNumber)
                 
             } else if nowServingNumber == "A-08" {
                 // Patient finished examination

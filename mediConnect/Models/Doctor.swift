@@ -142,7 +142,14 @@ extension Doctor {
             reviewCount: 198,
             consultationFee: 3200,
             nextAvailableSlotText: "Tomorrow, 10:00 AM",
-            availableSlots: [],
+            availableSlots: [
+                TimeSlot(id: "s-201", date: Date(), timeString: "10:00 AM", isBooked: false, isSelected: true),
+                TimeSlot(id: "s-202", date: Date(), timeString: "10:30 AM", isBooked: false),
+                TimeSlot(id: "s-203", date: Date(), timeString: "11:00 AM", isBooked: true),
+                TimeSlot(id: "s-204", date: Date(), timeString: "11:30 AM", isBooked: false),
+                TimeSlot(id: "s-205", date: Date(), timeString: "2:00 PM", isBooked: false),
+                TimeSlot(id: "s-206", date: Date(), timeString: "2:30 PM", isBooked: true)
+            ],
             bio: "Consultant in preventive cardiovascular medicine focusing on hypertension, lipid management, and lifestyle cardiology.",
             qualifications: ["MBBS", "MRCP (London)", "Board Certified in Cardiology"],
             spokenLanguages: ["English", "Sinhala", "Tamil"],
@@ -169,7 +176,14 @@ extension Doctor {
             reviewCount: 164,
             consultationFee: 3000,
             nextAvailableSlotText: "Tomorrow, 2:30 PM",
-            availableSlots: [],
+            availableSlots: [
+                TimeSlot(id: "s-201", date: Date(), timeString: "10:00 AM", isBooked: false, isSelected: true),
+                TimeSlot(id: "s-202", date: Date(), timeString: "10:30 AM", isBooked: false),
+                TimeSlot(id: "s-203", date: Date(), timeString: "11:00 AM", isBooked: true),
+                TimeSlot(id: "s-204", date: Date(), timeString: "11:30 AM", isBooked: false),
+                TimeSlot(id: "s-205", date: Date(), timeString: "2:00 PM", isBooked: false),
+                TimeSlot(id: "s-206", date: Date(), timeString: "2:30 PM", isBooked: true)
+            ],
             bio: "Expert in advanced heart failure therapies, echocardiography, and non-invasive cardiovascular diagnostics.",
             qualifications: ["MBBS", "MD", "Fellow of Heart Failure Society of America"],
             spokenLanguages: ["English", "Sinhala"],
@@ -196,7 +210,14 @@ extension Doctor {
             reviewCount: 420,
             consultationFee: 4000,
             nextAvailableSlotText: "Friday, 9:00 AM",
-            availableSlots: [],
+            availableSlots: [
+                TimeSlot(id: "s-201", date: Date(), timeString: "10:00 AM", isBooked: false, isSelected: true),
+                TimeSlot(id: "s-202", date: Date(), timeString: "10:30 AM", isBooked: false),
+                TimeSlot(id: "s-203", date: Date(), timeString: "11:00 AM", isBooked: true),
+                TimeSlot(id: "s-204", date: Date(), timeString: "11:30 AM", isBooked: false),
+                TimeSlot(id: "s-205", date: Date(), timeString: "2:00 PM", isBooked: false),
+                TimeSlot(id: "s-206", date: Date(), timeString: "2:30 PM", isBooked: true)
+            ],
             bio: "Leading pediatric cardiologist with expertise in congenital heart disease and pediatric cardiac interventions.",
             qualifications: ["MBBS", "MD (Paediatrics)", "FRCPCH (UK)"],
             spokenLanguages: ["English", "Sinhala"],

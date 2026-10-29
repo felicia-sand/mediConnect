@@ -106,10 +106,10 @@ final class BookingViewModel: ObservableObject {
             self.patientFullName = user.fullName
             self.contactNumber = user.phoneNumber ?? "077 123 4567"
         } else {
-            self.patientFullName = "Pasindu Mathsara"
-            self.patientAge = "29"
-            self.patientGender = "Male"
-            self.nicOrPassport = "199512304567"
+            self.patientFullName = "Felicia Gunasekara"
+            self.patientAge = "26"
+            self.patientGender = "Female"
+            self.nicOrPassport = "199854309821"
             self.contactNumber = "077 123 4567"
             self.homeAddress = "No. 24, Flower Road, Colombo 07"
         }
@@ -169,6 +169,9 @@ final class BookingViewModel: ObservableObject {
             
             // Commit to Cloud Firestore database
             try await FirestoreService.shared.createAppointment(newAppointment)
+            
+            // Schedule automated 24-hour and 2-hour reminders (PRD Feature 02)
+            NotificationService.shared.scheduleAppointmentReminders(for: newAppointment)
             
             self.confirmedAppointment = newAppointment
             self.isBookingConfirmed = true

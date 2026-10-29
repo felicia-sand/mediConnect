@@ -9,21 +9,45 @@
 // - Reschedule & Cancellation terms with confirmation alert
 
 import SwiftUI
+import MapKit
 
 struct AppointmentDetailView: View {
     
     @State var appointment: Appointment
     @State private var showCancelAlert: Bool = false
-    @State private var showRescheduleNotice: Bool = false
+    @State private var showRescheduleSheet: Bool = false
+    @State private var rescheduleDate: Date = Calendar.current.date(byAdding: .day, value: 1, to: Date()) ?? Date()
+    @State private var rescheduleSlotTime: String = "3:30 PM"
+    @State private var rescheduleReason: String = ""
+    @State private var showRescheduleSuccessBanner: Bool = false
+    @State private var showDirectionsSheet: Bool = false
     @Environment(\.dismiss) private var dismiss
+    
+    let availableRescheduleSlots = ["09:30 AM", "10:30 AM", "11:30 AM", "03:00 PM", "03:30 PM", "04:30 PM", "05:00 PM"]
     
     var body: some View {
         ScrollView(showsIndicators: false) {
             VStack(spacing: 18) {
                 
+                // Reschedule Success Banner
+                if showRescheduleSuccessBanner {
+                    HStack(spacing: 8) {
+                        Image(systemName: "checkmark.circle.fill")
+                            .foregroundStyle(Color.mcStatusGreen)
+                        Text("Appointment rescheduled successfully to \(appointment.formattedDate) at \(rescheduleSlotTime)!")
+                            .font(.system(size: 13, weight: .semibold))
+                            .foregroundStyle(Color.mcStatusGreen)
+                    }
+                    .frame(maxWidth: .infinity)
+                    .padding(12)
+                    .background(Color.mcStatusGreenBg)
+                    .clipShape(RoundedRectangle(cornerRadius: 12))
+                    .padding(.top, 4)
+                }
+                
                 // MARK: - 1. Attending Specialist Card
                 attendingSpecialistCard
-                    .padding(.top, 4)
+                    .padding(.top, showRescheduleSuccessBanner ? 0 : 4)
                 
                 // MARK: - 2. Clinic Location & Directions Card
                 clinicLocationCard
@@ -61,9 +85,16 @@ struct AppointmentDetailView: View {
             Button("Keep Appointment", role: .cancel) {}
             Button("Cancel Appointment", role: .destructive) {
                 appointment.status = .cancelled
+                NotificationService.shared.cancelAppointmentReminders(for: appointment.id)
             }
         } message: {
             Text("Are you sure you want to cancel this appointment? Cancelling immediately opens the slot for emergency patients.")
+        }
+        .sheet(isPresented: $showRescheduleSheet) {
+            rescheduleSheetView
+        }
+        .sheet(isPresented: $showDirectionsSheet) {
+            directionsSheetView
         }
     }
     
@@ -210,7 +241,7 @@ struct AppointmentDetailView: View {
             
             // Get Directions Button
             Button {
-                // Open native maps directions
+                showDirectionsSheet = true
             } label: {
                 HStack(spacing: 6) {
                     Image(systemName: "arrow.triangle.turn.up.right.diamond.fill")
@@ -317,7 +348,7 @@ struct AppointmentDetailView: View {
     // 5. Reschedule Action Button
     private var rescheduleButton: some View {
         Button {
-            showRescheduleNotice = true
+            showRescheduleSheet = true
         } label: {
             VStack(spacing: 4) {
                 HStack(spacing: 6) {
@@ -342,6 +373,208 @@ struct AppointmentDetailView: View {
             )
         }
         .buttonStyle(.plain)
+    }
+
+    // MARK: - Reschedule Modal Sheet
+    private var rescheduleSheetView: some View {
+        NavigationStack {
+            Form {
+                Section("Select New Date") {
+                    DatePicker(
+                        "Consultation Date",
+                        selection: $rescheduleDate,
+                        in: Date()...,
+                        displayedComponents: .date
+                    )
+                    .tint(Color.mcTeal)
+                }
+                
+                Section("Available Time Slots") {
+                    ScrollView(.horizontal, showsIndicators: false) {
+                        HStack(spacing: 8) {
+                            ForEach(availableRescheduleSlots, id: \.self) { slot in
+                                let isSelected = rescheduleSlotTime == slot
+                                Button {
+                                    rescheduleSlotTime = slot
+                                } label: {
+                                    Text(slot)
+                                        .font(.system(size: 13, weight: .semibold))
+                                        .foregroundStyle(isSelected ? .white : Color.mcTextPrimary)
+                                        .padding(.horizontal, 14)
+                                        .padding(.vertical, 8)
+                                        .background(isSelected ? Color.mcTeal : Color.mcInputBg)
+                                        .clipShape(RoundedRectangle(cornerRadius: 8))
+                                        .overlay(
+                                            RoundedRectangle(cornerRadius: 8)
+                                                .stroke(isSelected ? Color.mcTeal : Color.mcBorderLight, lineWidth: 1)
+                                        )
+                                }
+                                .buttonStyle(.plain)
+                            }
+                        }
+                        .padding(.vertical, 4)
+                    }
+                }
+                
+                Section("Reason for Rescheduling (Optional)") {
+                    TextField("e.g. Schedule clash, work emergency...", text: $rescheduleReason)
+                        .font(.system(size: 14))
+                }
+                
+                Section {
+                    Button {
+                        // Confirm Reschedule
+                        appointment.scheduledDate = rescheduleDate
+                        appointment.notes = "Rescheduled to \(rescheduleSlotTime) · Reason: \(rescheduleReason.isEmpty ? "Patient request" : rescheduleReason)"
+                        
+                        // Reschedule Notification Reminders
+                        NotificationService.shared.cancelAppointmentReminders(for: appointment.id)
+                        NotificationService.shared.scheduleAppointmentReminders(for: appointment)
+                        
+                        showRescheduleSheet = false
+                        withAnimation {
+                            showRescheduleSuccessBanner = true
+                        }
+                    } label: {
+                        HStack {
+                            Spacer()
+                            Text("Confirm Reschedule")
+                                .font(.system(size: 15, weight: .bold))
+                                .foregroundStyle(.white)
+                            Spacer()
+                        }
+                        .frame(height: 44)
+                        .background(Color.mcTeal)
+                        .clipShape(RoundedRectangle(cornerRadius: 10))
+                    }
+                    .buttonStyle(.plain)
+                }
+            }
+            .navigationTitle("Reschedule Appointment")
+            .inlineNavigationBarTitle()
+            .toolbar {
+                ToolbarItem(placement: .cancellationAction) {
+                    Button("Cancel") {
+                        showRescheduleSheet = false
+                    }
+                }
+            }
+        }
+    }
+    
+    // MARK: - Directions Sheet View
+    private var directionsSheetView: some View {
+        NavigationStack {
+            VStack(spacing: 20) {
+                // Header Map Card
+                VStack(alignment: .leading, spacing: 8) {
+                    HStack {
+                        Image(systemName: "mappin.and.ellipse")
+                            .foregroundStyle(Color.mcTeal)
+                        Text(appointment.clinicName)
+                            .font(.system(size: 16, weight: .bold))
+                            .foregroundStyle(Color.mcTextPrimary)
+                    }
+                    
+                    Text(appointment.clinicAddress)
+                        .font(.system(size: 13))
+                        .foregroundStyle(Color.mcTextSecondary)
+                    
+                    HStack(spacing: 6) {
+                        Image(systemName: "car.fill")
+                            .font(.system(size: 12))
+                        Text("1.8 km · ~7 mins drive via Galle Road")
+                            .font(.system(size: 13, weight: .semibold))
+                    }
+                    .foregroundStyle(Color.mcTeal)
+                    .padding(.top, 4)
+                }
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .padding(16)
+                .background(Color.mcTealLight.opacity(0.6))
+                .clipShape(RoundedRectangle(cornerRadius: 14))
+                
+                // Driving Guidance Steps
+                VStack(alignment: .leading, spacing: 14) {
+                    Text("ROUTE GUIDANCE")
+                        .font(.system(size: 11, weight: .bold))
+                        .foregroundStyle(Color.mcTextLabel)
+                    
+                    stepRow(stepNumber: "1", instruction: "Head south on Galle Road (A2) toward Colombo 05", distance: "1.1 km")
+                    stepRow(stepNumber: "2", instruction: "Turn left onto Havelock Road at the intersection", distance: "500 m")
+                    stepRow(stepNumber: "3", instruction: "Arrive at \(appointment.clinicName) on your left (Room 204)", distance: "200 m")
+                }
+                .padding(16)
+                .background(Color.white)
+                .clipShape(RoundedRectangle(cornerRadius: 14))
+                .overlay(
+                    RoundedRectangle(cornerRadius: 14)
+                        .stroke(Color.mcBorderLight, lineWidth: 1)
+                )
+                
+                Spacer()
+                
+                // Open in Apple Maps Button
+                Button {
+                    openNativeMaps()
+                } label: {
+                    HStack(spacing: 8) {
+                        Image(systemName: "arrow.triangle.turn.up.right.diamond.fill")
+                        Text("Open Navigation in Apple Maps")
+                            .font(.system(size: 15, weight: .bold))
+                    }
+                    .frame(maxWidth: .infinity)
+                    .frame(height: 50)
+                    .foregroundStyle(.white)
+                    .background(Color.mcTeal)
+                    .clipShape(RoundedRectangle(cornerRadius: 12))
+                }
+                .buttonStyle(.plain)
+            }
+            .padding(20)
+            .navigationTitle("Directions & Route")
+            .inlineNavigationBarTitle()
+            .toolbar {
+                ToolbarItem(placement: .confirmationAction) {
+                    Button("Done") {
+                        showDirectionsSheet = false
+                    }
+                }
+            }
+        }
+    }
+    
+    private func stepRow(stepNumber: String, instruction: String, distance: String) -> some View {
+        HStack(alignment: .top, spacing: 12) {
+            Text(stepNumber)
+                .font(.system(size: 12, weight: .bold))
+                .foregroundStyle(Color.mcTeal)
+                .frame(width: 24, height: 24)
+                .background(Color.mcTealLight)
+                .clipShape(Circle())
+            
+            VStack(alignment: .leading, spacing: 2) {
+                Text(instruction)
+                    .font(.system(size: 13, weight: .medium))
+                    .foregroundStyle(Color.mcTextPrimary)
+                Text(distance)
+                    .font(.system(size: 11))
+                    .foregroundStyle(Color.mcTextSecondary)
+            }
+            Spacer()
+        }
+    }
+    
+    private func openNativeMaps() {
+        let coordinate = CLLocationCoordinate2D(latitude: 6.8920, longitude: 79.8565)
+        let placemark = MKPlacemark(coordinate: coordinate)
+        let mapItem = MKMapItem(placemark: placemark)
+        mapItem.name = appointment.clinicName
+        #if os(iOS)
+        mapItem.openInMaps(launchOptions: [
+            MKLaunchOptionsDirectionsModeKey: MKLaunchOptionsDirectionsModeDriving
+        ])
+        #endif
     }
     
     // 6. Cancellation Terms Card & Cancel Button

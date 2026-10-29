@@ -25,7 +25,7 @@ final class HomeViewModel: ObservableObject {
     
     // MARK: - Greeting
     func greeting(for user: User?) -> String {
-        let name = user?.firstName ?? "Pasindu"
+        let name = user?.firstName ?? "Felicia"
         let hour = Calendar.current.component(.hour, from: Date())
         
         if hour < 12 {
